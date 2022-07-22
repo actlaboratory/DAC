@@ -1,0 +1,6 @@
+comtypes
+bs4
+lxml
+ebooklib
+pydub
+requests
