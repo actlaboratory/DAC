@@ -1,2 +1,7 @@
+# python
 .venv
 __pycache__
+
+# documents
+*.epub
+/output*/
