@@ -17,7 +17,7 @@ class DaisyBuilder:
         self.nccTexts.append("%s%s" %(" " * indent, text))
     
     def _makeSmil(self, item):
-        smilDuration = sum(item["durations"])
+        smilDuration = item["durationSecond"]
         
         text = fileMetas.SMIL_DEFINE
         text += fileMetas.makeSmilHead("test", self.totalDuration, smilDuration)
@@ -28,13 +28,9 @@ class DaisyBuilder:
             + '    <seq>\n'
         )
         
-        beginDuration = 0
-        endDuration = 0
         phraseIDCounter = 0
-        for d in item["durations"]:
-            endDuration += d
-            text += '      <audio src="%s" clip-begin="npt=%ds" clip-end="npt=%ds" id="phrase_%08d"/>\n' %(os.path.basename(item["audioFile"]), beginDuration, endDuration, phraseIDCounter)
-            beginDuration += d
+        for i in range(len(item["beginSeconds"])):
+            text += '      <audio src="%s" clip-begin="npt=%fs" clip-end="npt=%fs" id="phrase_%08d"/>\n' %(os.path.basename(item["audioFile"]), item["beginSeconds"][i], item["endSeconds"][i], phraseIDCounter)
             phraseIDCounter += 1
         
         text += ('    </seq>\n'
