@@ -1,7 +1,26 @@
 # python
 .venv
+*.pyc
 __pycache__
 
 # documents
 *.epub
+settings.ini
+keymap.ini
+*.log
+*log.txt
+*.obj
+*.exp
+*.lib
+*.spec
+pl_auto_save
+
+# output
+build/
+dist/
 /output*/
+
+# utils
+*.bat
+runCMD.bat
+.workspace.code-workspace
