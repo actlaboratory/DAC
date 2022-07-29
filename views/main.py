@@ -64,10 +64,9 @@ class MainView(BaseView):
 		self.outputBrowseButton = horizontalCreator.button(_("参照"))
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), state=self.SAPI_DEFAULT, selection=self.SAPI)
-		self.voiceCombo, tmp = horizontalCreator.combobox(_("声"), state=self.OUTPUT_FILE_CATEGORY_DEFAULT, selection=self.OUTPUT_FILE_CATEGORIES)
+		self.button = horizontalCreator.button(_("詳細設定"))
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-		self.voiceSpeedCombo, tmp = horizontalCreator.combobox(_("速度"), state=self.VOICE_SPEED_DEFAULT, selection=self.VOICE_SPEED)
-		self.breathingTimeCombo, tmp = horizontalCreator.combobox(_("息継ぎ"), state=self.BREATHING_TIME_DEFAULT, selection=self.BREATHING_TIME)
+		self.controlButton = horizontalCreator.button(_("開始"))
 
 
 
