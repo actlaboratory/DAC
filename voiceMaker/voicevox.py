@@ -32,3 +32,12 @@ def outputVoicevoxSpeech(text, filename, speaker=2, max_retry=10):
     else:
         return False
 
+def getVoicevoxVoices():
+    r = requests.get("http://localhost:50021/speakers", timeout=(10.0, 30.0))
+    if r.status_code == 200:
+        return r.json()
+    else:
+        return False
+
+if __name__ == "__main__":
+    print(getVoicevoxVoices())
