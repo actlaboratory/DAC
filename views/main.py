@@ -17,6 +17,7 @@ from views import globalKeyConfig
 from views import sample
 from views import settingsDialog
 from views import versionDialog
+from views import sapi5SettingsDialog
 
 class MainView(BaseView):
 	def __init__(self):
@@ -64,7 +65,7 @@ class MainView(BaseView):
 		self.outputBrowseButton = horizontalCreator.button(_("参照"))
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), state=self.SAPI_DEFAULT, selection=self.SAPI)
-		self.button = horizontalCreator.button(_("詳細設定"))
+		self.button = horizontalCreator.button(_("詳細設定"), self.events.voiceSettings)
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.controlButton = horizontalCreator.button(_("開始"))
 
@@ -106,6 +107,12 @@ class Menu(BaseMenu):
 		target.SetMenuBar(self.hMenuBar)
 
 class Events(BaseEvents):
+	def voiceSettings(self, evt):
+		d = sapi5SettingsDialog.Dialog()
+		d.Initialize()
+		d.Show()
+	
+	
 	def example(self,event):
 		d = sample.Dialog()
 		d.Initialize()
