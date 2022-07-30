@@ -17,9 +17,9 @@ def outputSapiSpeech(text, fileName):
 
 def getSapiVoices():
 	engine = CreateObject('SAPI.SpVoice')
-	category = CreateObject("SAPI.SpObjectTokenCategory")
-	category.SetID(r"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices", False)
-	voices = [t for t in category.EnumerateTokens() ]
+	#category = CreateObject("SAPI.SpObjectTokenCategory")
+	#category.SetID(r"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices", False)
+	voices = [t for t in engine.GetVoices() ]
 	return voices
 
 if __name__ == "__main__":
