@@ -3,6 +3,7 @@
 #Copyright (C) 2019 Yukio Nozawa <personal@nyanchangames.com>
 #Copyright (C) 2019-2021 yamahubuki <itiro.ishino@gmail.com>
 
+import time, threading
 import wx
 
 import constants
@@ -20,6 +21,7 @@ from views import versionDialog
 from views import sapi5SettingsDialog
 
 import daisyMaker
+from views import mkProgress
 
 class MainView(BaseView):
 	def __init__(self):
@@ -119,6 +121,24 @@ class Events(BaseEvents):
 			"voicePointer": pointer
 		})
 		tBuild.start()
+		progress = mkProgress.Dialog("convertProgress")
+		progress.Initialize("", _("処理中"))
+		t = threading.Thread(target=self.updateConvertProgressThread, args=(progress, tBuild))
+		t.start()
+		progress.Show()
+		
+
+	
+	def updateConvertProgressThread(self, progress, tBuild):
+		countTmp = 0
+		while tBuild.finished == False:
+			time.sleep(0.1)
+			count = tBuild.count
+			if countTmp != count:
+				countTmp = count
+				wx.YieldIfNeeded()
+				progress.update(count, None, tBuild.total)
+		progress.Destroy()
 	
 	def voiceSettings(self, evt):
 		d = sapi5SettingsDialog.Dialog()
