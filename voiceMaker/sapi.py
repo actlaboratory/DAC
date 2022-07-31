@@ -1,14 +1,17 @@
 from comtypes.client import CreateObject
 
-def outputSapiSpeech(text, fileName):
+def outputSapiSpeech(text, fileName, options):
 	try:
 		text = text.replace("<", "&lt;")
 		engine = CreateObject('SAPI.SpVoice')
 		stream = CreateObject('SAPI.SpFileStream')
 		from comtypes.gen import SpeechLib
 		stream.Open(fileName, SpeechLib.SSFMCreateForWrite)
+		tmp = engine.Voice
+		engine.Voice = options["voicePointer"]
 		engine.AudioOutputStream = stream
 		engine.speak(text)
+		engine.Voice = tmp
 		stream.close()
 		return True
 	except Exception as e:

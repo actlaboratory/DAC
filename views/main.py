@@ -19,6 +19,8 @@ from views import settingsDialog
 from views import versionDialog
 from views import sapi5SettingsDialog
 
+import daisyMaker
+
 class MainView(BaseView):
 	def __init__(self):
 		# support file categories
@@ -67,7 +69,7 @@ class MainView(BaseView):
 		self.sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), state=self.SAPI_DEFAULT, selection=self.SAPI)
 		self.button = horizontalCreator.button(_("詳細設定"), self.events.voiceSettings)
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-		self.controlButton = horizontalCreator.button(_("開始"))
+		self.controlButton = horizontalCreator.button(_("開始"), self.events.start)
 
 
 
@@ -107,6 +109,17 @@ class Menu(BaseMenu):
 		target.SetMenuBar(self.hMenuBar)
 
 class Events(BaseEvents):
+	def start(self, evt):
+		voices = daisyMaker.getSapiVoices()
+		pointer = None
+		for v in voices:
+			if v["name"] == self.parent.app.config["SAPI5"]["voice"]: pointer = v["pointer"]
+		if pointer == None: return
+		tBuild = daisyMaker.daisyMaker(self.parent.inputPathInput.GetValue(), daisyMaker.SAPI, {
+			"voicePointer": pointer
+		})
+		tBuild.start()
+	
 	def voiceSettings(self, evt):
 		d = sapi5SettingsDialog.Dialog()
 		d.Initialize()
