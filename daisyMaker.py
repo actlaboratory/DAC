@@ -1,3 +1,5 @@
+import os
+import shutil
 import threading
 from comtypes import CoInitialize
 import time
@@ -46,6 +48,7 @@ class daisyMaker(threading.Thread):
         
         _counter = 1
         _outputCounter = 1
+        os.makedirs(".\outputTmp", exist_ok=True)
         for i in index:
             audioTmps = []
             i["beginSeconds"] = []
@@ -69,6 +72,7 @@ class daisyMaker(threading.Thread):
                     i["beginSeconds"].append(audioOutput.duration_seconds)
                     audioOutput = audioOutput + audioTmp
                 i["endSeconds"].append(audioOutput.duration_seconds)
+            
             if audioOutput != None:
                 outputFile = ".\\output\\audio%08d.mp3" %(_outputCounter,)
                 audioOutput.export(outputFile, format="mp3")
@@ -76,6 +80,9 @@ class daisyMaker(threading.Thread):
                 i["durationSecond"] = i["endSeconds"][-1]
                 _outputCounter += 1
 
+        shutil.rmtree(".\\outputTmp")
+        os.makedirs(".\outputTmp")
+        
         builder = daisyBuilder.DaisyBuilder()
         builder.build(index)
         self.finished = True
