@@ -35,11 +35,11 @@ def _splitText(text):
     #print(text)
     if text == None or text == "":
         return []
-    split = re.split(r'[.。\n]', text)
+    split = re.split(r'[。\n]|(?:\. )', text)
     ret = []
     for s in split:
         if s.strip() != "":
-            ret.append(s)
+            ret.append(s + ".")
     return ret
 
 def _getAllTags(soupTag):
