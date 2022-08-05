@@ -48,7 +48,9 @@ class daisyMaker(threading.Thread):
         
         _counter = 1
         _outputCounter = 1
+        shutil.rmtree(".\\output")
         os.makedirs(".\outputTmp", exist_ok=True)
+        os.makedirs(".\output")
         for i in index:
             audioTmps = []
             i["beginSeconds"] = []

@@ -1,5 +1,5 @@
 import os
-import shutil
+
 from . import fileMetas
 
 class DaisyBuilder:
@@ -52,9 +52,6 @@ class DaisyBuilder:
 
     def build(self, index, outputDir="output"):
         self.directory = ".\\%s\\" %(outputDir,)
-
-        shutil.rmtree(self.directory)
-        os.makedirs(self.directory)
 
         self._appendNcc("<body>")
         
