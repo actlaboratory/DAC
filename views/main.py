@@ -19,6 +19,7 @@ from views import sample
 from views import settingsDialog
 from views import versionDialog
 from views import sapi5SettingsDialog
+from views import daisyOutputPanel
 
 import daisyMaker
 from views import mkProgress
@@ -34,6 +35,7 @@ class MainView(BaseView):
 		# SAPI settings
 		self.SAPI = [_("Microsoft SAPI5"), _("Voicevox")]
 		self.SAPI_DEFAULT = 0
+		self.sapi_selected = 0
 		self.VOICE_SPEED = [_("遅い"), _("標準"), _("速い"), _("より速い")]
 		self.VOICE_SPEED_DEFAULT = 1
 		self.BREATHING_TIME = [_("速度に最適化"), _("短い"), _("標準"), _("長い")]
@@ -63,15 +65,9 @@ class MainView(BaseView):
 		self.inputBrowseButton = horizontalCreator.button(_("参照"))
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.outputCategoryCombo, tmp = horizontalCreator.combobox(_("出力データの種類"), state=self.OUTPUT_FILE_CATEGORY_DEFAULT, selection=self.OUTPUT_FILE_CATEGORIES)
-		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-		self.outputDirInput, tmp = horizontalCreator.inputbox(_("出力先"), style=0, proportion=1, sizerFlag=wx.ALIGN_CENTER_VERTICAL)
-		self.outputDirInput.hideScrollBar(wx.HORIZONTAL)
-		self.outputBrowseButton = horizontalCreator.button(_("参照"))
-		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-		self.sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), state=self.SAPI_DEFAULT, selection=self.SAPI)
-		self.button = horizontalCreator.button(_("詳細設定"), self.events.voiceSettings)
-		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-		self.controlButton = horizontalCreator.button(_("開始"), self.events.start)
+		self.outputAreaCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
+		self.outputCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
+		daisyOutputPanel.createDaisyOutputPanel(self.viewMode, self.outputAreaCreator, self.outputCreator, self.SAPI_DEFAULT, self.SAPI, self.events.sapiActivate, self.events.voiceSettings, self.events.start)
 
 
 
@@ -111,6 +107,12 @@ class Menu(BaseMenu):
 		target.SetMenuBar(self.hMenuBar)
 
 class Events(BaseEvents):
+	def sapiActivate(self, evt):
+		self.parent.outputCreator.Destroy()
+		selected = evt.GetEventObject().GetSelection()
+		self.parent.sapi_selected = selected
+		if selected == 0: daisyOutputPanel.createDaisyOutputPanel(self.panel.viewMode, self.parent.outputAreaCreator, self.parent.outputCreator, self.SAPI_DEFAULT, self.SAPI, self.events.sapiActivate, self.events.voiceSettings, self.events.start)
+	
 	def start(self, evt):
 		voices = daisyMaker.getSapiVoices()
 		pointer = None
