@@ -114,33 +114,11 @@ class Events(BaseEvents):
 		if selected == 0: daisyOutputPanel.createDaisyOutputPanel(self.panel.viewMode, self.parent.outputAreaCreator, self.parent.outputCreator, self.SAPI_DEFAULT, self.SAPI, self.events.sapiActivate, self.events.voiceSettings, self.events.start)
 	
 	def start(self, evt):
-		voices = daisyMaker.getSapiVoices()
-		pointer = None
-		for v in voices:
-			if v["name"] == self.parent.app.config["SAPI5"]["voice"]: pointer = v["pointer"]
-		if pointer == None: return
-		tBuild = daisyMaker.daisyMaker(self.parent.inputPathInput.GetValue(), daisyMaker.SAPI, {
-			"voicePointer": pointer
-		})
-		tBuild.start()
-		progress = mkProgress.Dialog("convertProgress")
-		progress.Initialize("", _("処理中"))
-		t = threading.Thread(target=self.updateConvertProgressThread, args=(progress, tBuild))
-		t.start()
-		progress.Show()
+		if self.parent.sapi_selected == 0: daisyOutputPanel.daisyOutputEvent(self.parent.app.config["SAPI5"]["voice"], self.parent.inputPathInput.GetValue())
 		
 
 	
-	def updateConvertProgressThread(self, progress, tBuild):
-		countTmp = 0
-		while tBuild.finished == False:
-			time.sleep(0.1)
-			count = tBuild.count
-			if countTmp != count:
-				countTmp = count
-				wx.YieldIfNeeded()
-				progress.update(count, None, tBuild.total)
-		progress.Destroy()
+	
 	
 	def voiceSettings(self, evt):
 		d = sapi5SettingsDialog.Dialog()
