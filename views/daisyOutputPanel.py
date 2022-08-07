@@ -88,7 +88,7 @@ class daisyOutputPanel:
 
     def _onStartButton(self, evt):
         if self.sapiSelected == 0: self.daisyOutputEvent(daisyMaker.SAPI, self.parent.app.config["SAPI5"]["voice"], self.parent.inputPathInput.GetValue())
-        elif self.parent.sapi_selected == 1: daisyOutputPanel.daisyOutputEvent(daisyMaker.VOICEVOX, self.parent.app.config["Voicevox"]["voice"], self.parent.inputPathInput.GetValue())
+        elif self.sapiSelected == 1: self.daisyOutputEvent(daisyMaker.VOICEVOX, self.parent.app.config["Voicevox"]["voice"], self.parent.inputPathInput.GetValue())
 
     def _onConfigButton(self, evt):
         if self.sapiSelected == 0:
