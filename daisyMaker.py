@@ -24,7 +24,7 @@ def getVoicevoxVoices():
     result = voiceMaker.getVoicevoxVoices()
     voices = []
     for v in result:
-        for s in v["style"]:
+        for s in v["styles"]:
             voices.append({"name": "%s(%s)" %(v["name"], s["name"]), "id": s["id"]})
     return voices
 
@@ -60,7 +60,9 @@ class daisyMaker(threading.Thread):
             audioOutput = None
             for t in i["texts"]:
                 fileName = ".\\outputTmp\\%08d.wav" %(_counter,)
-                result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
+                if self.mode == SAPI: result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
+                elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"])
+                else: return
                 audioTmps.append(fileName)
                 _counter += 1
                 self.count += 1
