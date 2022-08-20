@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+from errors import *
 
 def outputVoicevoxSpeech(text, filename, speaker=2, max_retry=10):
     # Internal Server Error(500)が出ることがあるのでリトライする
@@ -16,7 +17,7 @@ def outputVoicevoxSpeech(text, filename, speaker=2, max_retry=10):
             break
         time.sleep(1)
     else:
-        return False
+        raise connectionError("Make audio query faild.")
 
     # synthesis
     synth_payload = {"speaker": speaker}    
@@ -30,14 +31,14 @@ def outputVoicevoxSpeech(text, filename, speaker=2, max_retry=10):
             return True
         time.sleep(1)
     else:
-        return False
+        raise engineError("voicevox speak failed.")
 
 def getVoicevoxVoices():
     r = requests.get("http://localhost:50021/speakers", timeout=(10.0, 30.0))
     if r.status_code == 200:
         return r.json()
     else:
-        return False
+        raise connectionError("Get voicevox speakers failed.")
 
 if __name__ == "__main__":
     print(getVoicevoxVoices())

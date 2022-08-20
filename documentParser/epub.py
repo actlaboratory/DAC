@@ -7,6 +7,7 @@ import json
 from ebooklib import epub
 import bs4
 from bs4 import BeautifulSoup
+from errors import *
 
 def _parseEpubNavPoint(tags, level=1, sources=[], indexes=[], finalize=True):
     for t in tags:
@@ -88,7 +89,8 @@ def _appendText2EpubIndex(book, index, phrase=False):
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def parseEpub(source, phrase=False):
-    book = epub.read_epub('input.epub')
+    try: book = epub.read_epub('input.epub')
+    except Exception as e: inputError(str(e))
 
     title = book.get_metadata('DC', 'title')[0][0]
     try: creator = book.get_metadata('DC', 'creator')[0][0]
@@ -107,10 +109,13 @@ def parseEpub(source, phrase=False):
     indexes = []
     for item in items:
         print(item.get_name())
-        xml = item.get_content().decode()
-        soup = BeautifulSoup(xml, "lxml-xml")
-        tags = soup.navMap
-        sources, indexes = _parseEpubNavPoint(tags)
+        try:
+            xml = item.get_content().decode()
+            soup = BeautifulSoup(xml, "lxml-xml")
+            tags = soup.navMap
+            sources, indexes = _parseEpubNavPoint(tags)
+        except Exception as e:
+            raise inputError(str(e))
     _appendText2EpubIndex(book, indexes, phrase=phrase)
     if sources != [] and indexes != []:
         return (sources, indexes)
@@ -119,8 +124,11 @@ def parseEpub(source, phrase=False):
     indexes = []
     for item in items:
         print(item.get_name())
-        xml = item.get_content().decode()
-        soup = BeautifulSoup(xml, "lxml-xml")
+        try:
+            xml = item.get_content().decode()
+            soup = BeautifulSoup(xml, "lxml-xml")
+        except Exception as e:
+            raise inputError(str(e))
     
 
 if __name__ == '__main__':

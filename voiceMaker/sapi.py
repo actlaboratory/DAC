@@ -1,4 +1,5 @@
 from comtypes.client import CreateObject
+from errors import *
 
 def outputSapiSpeech(text, fileName, options):
 	try:
@@ -15,13 +16,11 @@ def outputSapiSpeech(text, fileName, options):
 		stream.close()
 		return True
 	except Exception as e:
-		print("%s => %s" %(str(text), str(e)))
-		return False
+		raise engineError("%s => %s" %(str(text), str(e)))
 
 def getSapiVoices():
-	engine = CreateObject('SAPI.SpVoice')
-	#category = CreateObject("SAPI.SpObjectTokenCategory")
-	#category.SetID(r"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech_OneCore\Voices", False)
+	try: engine = CreateObject('SAPI.SpVoice')
+	except Exception as e: engineError(str(e))
 	voices = [t for t in engine.GetVoices() ]
 	return voices
 

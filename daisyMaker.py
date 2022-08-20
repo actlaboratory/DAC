@@ -5,6 +5,7 @@ from comtypes import CoInitialize
 import time
 from pydub import AudioSegment
 import documentParser
+from errors import outputError
 import voiceMaker
 import daisyBuilder
 
@@ -48,9 +49,12 @@ class daisyMaker(threading.Thread):
         
         _counter = 1
         _outputCounter = 1
-        shutil.rmtree(".\\output")
-        os.makedirs(".\outputTmp", exist_ok=True)
-        os.makedirs(".\output")
+        try:
+            shutil.rmtree(".\\output")
+            os.makedirs(".\outputTmp", exist_ok=True)
+            os.makedirs(".\output")
+        except Exception as e:
+            raise outputError(str(e))
         for i in index:
             audioTmps = []
             i["beginSeconds"] = []
@@ -68,7 +72,8 @@ class daisyMaker(threading.Thread):
                 self.count += 1
                 time.sleep(0.001)
             for f in audioTmps:
-                audioTmp = AudioSegment.from_file(f, "wav")
+                try: audioTmp = AudioSegment.from_file(f, "wav")
+                except Exception as e: outputError(str(e))
                 if audioOutput == None:
                     i["beginSeconds"].append(0.0)
                     audioOutput = audioTmp
@@ -79,13 +84,17 @@ class daisyMaker(threading.Thread):
             
             if audioOutput != None:
                 outputFile = ".\\output\\audio%08d.mp3" %(_outputCounter,)
-                audioOutput.export(outputFile, format="mp3")
+                try: audioOutput.export(outputFile, format="mp3")
+                except Exception as e: outputError(str(e))
                 i["audioFile"] = outputFile
                 i["durationSecond"] = i["endSeconds"][-1]
                 _outputCounter += 1
 
-        shutil.rmtree(".\\outputTmp")
-        os.makedirs(".\outputTmp")
+        try:
+            shutil.rmtree(".\\outputTmp")
+            os.makedirs(".\outputTmp")
+        except Exception as e:
+            raise outputError(str(e))
         
         builder = daisyBuilder.DaisyBuilder()
         builder.build(index)
