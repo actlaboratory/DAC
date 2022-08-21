@@ -39,6 +39,7 @@ class daisyMaker(threading.Thread):
         self.total = 0
         self.count = 0
         self.finished = False
+        self.error = None
     
     def run(self):
         CoInitialize()
@@ -54,7 +55,8 @@ class daisyMaker(threading.Thread):
             os.makedirs(".\outputTmp", exist_ok=True)
             os.makedirs(".\output")
         except Exception as e:
-            raise outputError(str(e))
+            self.error = outputError(str(e))
+            return
         for i in index:
             audioTmps = []
             i["beginSeconds"] = []
@@ -73,7 +75,9 @@ class daisyMaker(threading.Thread):
                 time.sleep(0.001)
             for f in audioTmps:
                 try: audioTmp = AudioSegment.from_file(f, "wav")
-                except Exception as e: outputError(str(e))
+                except Exception as e:
+                    self.error = outputError(str(e))
+                    return
                 if audioOutput == None:
                     i["beginSeconds"].append(0.0)
                     audioOutput = audioTmp
@@ -85,7 +89,9 @@ class daisyMaker(threading.Thread):
             if audioOutput != None:
                 outputFile = ".\\output\\audio%08d.mp3" %(_outputCounter,)
                 try: audioOutput.export(outputFile, format="mp3")
-                except Exception as e: outputError(str(e))
+                except Exception as e:
+                    self.error = outputError(str(e))
+                    return
                 i["audioFile"] = outputFile
                 i["durationSecond"] = i["endSeconds"][-1]
                 _outputCounter += 1
@@ -94,7 +100,8 @@ class daisyMaker(threading.Thread):
             shutil.rmtree(".\\outputTmp")
             os.makedirs(".\outputTmp")
         except Exception as e:
-            raise outputError(str(e))
+            self.error = outputError(str(e))
+            return
         
         builder = daisyBuilder.DaisyBuilder()
         builder.build(index)

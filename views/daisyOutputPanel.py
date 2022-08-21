@@ -3,6 +3,8 @@ import wx
 import threading
 
 import views
+from errors import *
+from views import mkDialog
 from views import mkProgress
 from views import sapi5SettingsDialog
 from views import voicevoxSettingsDialog
@@ -51,29 +53,48 @@ class daisyOutputPanel:
                 countTmp = count
                 wx.YieldIfNeeded()
                 progress.update(count, None, tBuild.total)
+            if tBuild.error != None:
+                d = mkDialog.Dialog("error dialog")
+                d.Initialize(_("エラー"), _("変換中にエラーが発生しました。処理を中止します。"))
+                d.Show()
+                progress.Destroy()
         progress.Destroy()
 
     def daisyOutputEvent(self, category, voice, input, output="output"):
-        if category == daisyMaker.SAPI:
-            voices = daisyMaker.getSapiVoices()
-            pointer = None
-            for v in voices:
-                if v["name"] == voice: pointer = v["pointer"]
-            if pointer == None: return
-            tBuild = daisyMaker.daisyMaker(input, daisyMaker.SAPI, {
-                "voicePointer": pointer
-            })
-        elif category == daisyMaker.VOICEVOX:
-            voices = daisyMaker.getVoicevoxVoices()
-            id = None
-            for v in voices:
-                if v["name"] == voice: id = v["id"]
-            if id == None: return
-            tBuild = daisyMaker.daisyMaker(input, daisyMaker.VOICEVOX, {
-                "voiceID": id
-            })
-        else:
-            return
+        try:
+            if category == daisyMaker.SAPI:
+                voices = daisyMaker.getSapiVoices()
+                pointer = None
+                for v in voices:
+                    if v["name"] == voice: pointer = v["pointer"]
+                if pointer == None: return
+                tBuild = daisyMaker.daisyMaker(input, daisyMaker.SAPI, {
+                    "voicePointer": pointer
+                })
+            elif category == daisyMaker.VOICEVOX:
+                voices = daisyMaker.getVoicevoxVoices()
+                id = None
+                for v in voices:
+                    if v["name"] == voice: id = v["id"]
+                if id == None: return
+                tBuild = daisyMaker.daisyMaker(input, daisyMaker.VOICEVOX, {
+                    "voiceID": id
+                })
+            else:
+                return
+        except connectionError as e:
+            d = mkDialog.Dialog("error dialog")
+            d.Initialize(_("エラー"), _("音声エンジンに接続できませんでした。"), ("OK",))
+            return d.Show()
+        except engineError as e:
+            d = mkDialog.Dialog("error dialog")
+            d.Initialize(_("エラー"), _("音声の呼び出しに失敗しました。音声エンジンの設定をご確認ください。"), ("OK",))
+            return d.Show()
+        except Exception as e:
+            d = mkDialog.Dialog("error dialog")
+            d.Initialize(_("エラー"), _("音声の呼び出し中にエラーが発生しました。"), ("OK",))
+            return d.Show()
+
         tBuild.start()
         progress = mkProgress.Dialog("convertProgress")
         progress.Initialize("", _("処理中"))
