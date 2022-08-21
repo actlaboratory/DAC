@@ -34,7 +34,8 @@ def outputVoicevoxSpeech(text, filename, speaker=2, max_retry=10):
         raise engineError("voicevox speak failed.")
 
 def getVoicevoxVoices():
-    r = requests.get("http://localhost:50021/speakers", timeout=(10.0, 30.0))
+    try: r = requests.get("http://localhost:50021/speakers", timeout=(10.0, 30.0))
+    except Exception as e: raise connectionError("get voicevox speakers failed. " + str(e))
     if r.status_code == 200:
         return r.json()
     else:

@@ -13,6 +13,8 @@ import views.ViewCreator
 from enum import Enum,auto
 from views.baseDialog import *
 import daisyMaker
+from errors import *
+from views import mkDialog
 
 
 class configType(Enum):
@@ -31,7 +33,21 @@ class Dialog(BaseDialog):
 	def Initialize(self):
 		self.log.debug("created")
 		super().Initialize(self.app.hMainView.hFrame,_("設定"))
-		voices = ([ v["name"] for v in daisyMaker.getVoicevoxVoices() ])
+		self.hasError = False
+		try:
+			voices = ([ v["name"] for v in daisyMaker.getVoicevoxVoices() ])
+		except connectionError as e:
+			d = mkDialog.Dialog("error dialog")
+			d.Initialize(_("エラー"), _("Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"), ("OK",))
+			d.Show()
+			self.hasError = True
+			return
+		except Exception as e:
+			d = mkDialog.Dialog("error dialog")
+			d.Initialize(_("エラー"), _("Voicevoxとの接続中にエラーが発生しました。"), ("OK",))
+			d.Show()
+			self.hasError = True
+			return
 		voices.sort()
 		for v in voices:
 			self.voiceSelection[v] = v
@@ -39,6 +55,10 @@ class Dialog(BaseDialog):
 		self.load()
 		return True
 
+	def Show(self):
+		if self.hasError == False:
+			super().Show()
+	
 	def InstallControls(self):
 		"""いろんなwidgetを設置する。"""
 
