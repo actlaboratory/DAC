@@ -51,7 +51,7 @@ class MainView(BaseView):
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.inputPathInput, tmp = horizontalCreator.inputbox(_("変換元"), style=0, proportion=1, sizerFlag=wx.ALIGN_CENTER_VERTICAL)
 		self.inputPathInput.hideScrollBar(wx.HORIZONTAL)
-		self.inputBrowseButton = horizontalCreator.button(_("参照"))
+		self.inputBrowseButton = horizontalCreator.button(_("参照"), self.events.inputBrowse)
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.outputCategoryCombo, tmp = horizontalCreator.combobox(_("出力データの種類"), state=self.OUTPUT_FILE_CATEGORY_DEFAULT, selection=self.OUTPUT_FILE_CATEGORIES)
 		self.outputCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.VERTICAL, style=wx.ALL | wx.EXPAND, space=10)
@@ -101,6 +101,19 @@ class Events(BaseEvents):
 		d.Initialize()
 		r = d.Show()
 
+	def inputBrowse(self, evt):
+		category = self.parent.inputCategoryCombo.GetValue()
+		d = None
+		if category == _("EPUBファイル"):
+			d = wx.FileDialog(None, _("変換元ファイルの選択"), wildcard=_("EPUBファイル (.epub)") + "|*.epub")
+		else:
+			return
+		r = d.ShowModal()
+		if r == wx.ID_CANCEL: return
+		path = d.GetPath()
+		if path == "" or path == "": return
+		self.parent.inputPathInput.SetLabel(path)
+	
 	def option(self,event):
 		d = settingsDialog.Dialog()
 		d.Initialize()
