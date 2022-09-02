@@ -24,9 +24,9 @@ class daisyOutputPanel:
     
     def create(self):
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-        dirInput, tmp = horizontalCreator.inputbox(_("出力先"), style=0, proportion=1, sizerFlag=wx.ALIGN_CENTER_VERTICAL)
-        dirInput.hideScrollBar(wx.HORIZONTAL)
-        browseButton = horizontalCreator.button(_("参照"))
+        self.dirInput, tmp = horizontalCreator.inputbox(_("出力先"), style=0, proportion=1, sizerFlag=wx.ALIGN_CENTER_VERTICAL)
+        self.dirInput.hideScrollBar(wx.HORIZONTAL)
+        browseButton = horizontalCreator.button(_("参照"), self._onBrowseButton)
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
         sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), self.sapiSelection, None, self.sapiSelected)
         sapiCombo.Bind(wx.EVT_COMBOBOX, self._onSapiSelected)
@@ -107,6 +107,14 @@ class daisyOutputPanel:
         selected = evt.GetSelection()
         self.sapiSelected = selected
 
+    def _onBrowseButton(self, evt):
+        d = wx.DirDialog(None, _("出力先フォルダの選択"), style=wx.FD_SAVE)
+        r = d.ShowModal()
+        if r != wx.ID_OK: return
+        path = d.GetPath()
+        if path == None or path == "": return
+        self.dirInput.SetLabel(path)
+    
     def _onStartButton(self, evt):
         if self.sapiSelected == 0: self.daisyOutputEvent(daisyMaker.SAPI, self.parent.app.config["SAPI5"]["voice"], self.parent.inputPathInput.GetValue())
         elif self.sapiSelected == 1: self.daisyOutputEvent(daisyMaker.VOICEVOX, self.parent.app.config["Voicevox"]["voice"], self.parent.inputPathInput.GetValue())
