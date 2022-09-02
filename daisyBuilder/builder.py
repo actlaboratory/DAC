@@ -42,7 +42,7 @@ class DaisyBuilder:
         )
 
         self._appendNcc('<h%d id="%s" class="section"><a href="%s#%s">%s</a></h%d>' %(item["level"], self._getNccID(), self._getSmilFileName(), self._getSmilID(), item["label"], item["level"]), 1)
-        with open(self.directory + self._getSmilFileName(), "w", encoding="UTF-8") as f:
+        with open(os.path.join(self.directory, self._getSmilFileName()), "w", encoding="UTF-8") as f:
             f.write(text)
 
         self.smilFileCounter += 1
@@ -51,7 +51,7 @@ class DaisyBuilder:
 
 
     def build(self, index, outputDir="output"):
-        self.directory = ".\\%s\\" %(outputDir,)
+        self.directory = outputDir
 
         self._appendNcc("<body>")
         
@@ -60,7 +60,7 @@ class DaisyBuilder:
         self._appendNcc("</body>")
         self._appendNcc("</html>")
         self.nccTexts.insert(1, fileMetas.makeNccHead("test", "any", self.smilFileCounter, self.totalDuration))
-        with open(self.directory + "ncc.html", "w", encoding="UTF-8") as f:
+        with open(os.path.join(self.directory, "ncc.html"), "w", encoding="UTF-8") as f:
             f.write("\n".join(self.nccTexts))
 
 

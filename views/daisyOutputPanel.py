@@ -66,7 +66,7 @@ class daisyOutputPanel:
                 for v in voices:
                     if v["name"] == voice: pointer = v["pointer"]
                 if pointer == None: return
-                tBuild = daisyMaker.daisyMaker(input, daisyMaker.SAPI, {
+                tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.SAPI, {
                     "voicePointer": pointer
                 })
             elif category == daisyMaker.VOICEVOX:
@@ -75,7 +75,7 @@ class daisyOutputPanel:
                 for v in voices:
                     if v["name"] == voice: id = v["id"]
                 if id == None: return
-                tBuild = daisyMaker.daisyMaker(input, daisyMaker.VOICEVOX, {
+                tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.VOICEVOX, {
                     "voiceID": id
                 })
             else:

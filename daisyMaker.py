@@ -31,9 +31,10 @@ def getVoicevoxVoices():
 
 
 class daisyMaker(threading.Thread):
-    def __init__(self, inputFile, mode=SAPI, options={}):
+    def __init__(self, inputFile, outputDir, mode=SAPI, options={}):
         threading.Thread.__init__(self)
         self.inputFile = inputFile
+        self.outputDir = outputDir
         self.mode = mode
         self.options = options
         self.total = 0
@@ -54,9 +55,10 @@ class daisyMaker(threading.Thread):
         _counter = 1
         _outputCounter = 1
         try:
-            shutil.rmtree(".\\output")
+            os.makedirs(self.outputDir)
+            shutil.rmtree(self.outputDir)
             os.makedirs(".\outputTmp", exist_ok=True)
-            os.makedirs(".\output")
+            os.makedirs(self.outputDir)
         except Exception as e:
             self.error = outputError(str(e))
             return
@@ -90,7 +92,7 @@ class daisyMaker(threading.Thread):
                 i["endSeconds"].append(audioOutput.duration_seconds)
             
             if audioOutput != None:
-                outputFile = ".\\output\\audio%08d.mp3" %(_outputCounter,)
+                outputFile = os.path.join(self.outputDir, "audio%08d.mp3" %(_outputCounter,))
                 try: audioOutput.export(outputFile, format="mp3")
                 except Exception as e:
                     self.error = outputError(str(e))
@@ -107,6 +109,6 @@ class daisyMaker(threading.Thread):
             return
         
         builder = daisyBuilder.DaisyBuilder()
-        builder.build(index)
+        builder.build(index, self.outputDir)
         self.finished = True
 
