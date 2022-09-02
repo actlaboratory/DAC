@@ -89,8 +89,8 @@ def _appendText2EpubIndex(book, index, phrase=False):
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def parseEpub(source, phrase=False):
-    try: book = epub.read_epub('input.epub')
-    except Exception as e: inputError(str(e))
+    try: book = epub.read_epub(source)
+    except Exception as e: raise inputError(str(e))
 
     title = book.get_metadata('DC', 'title')[0][0]
     try: creator = book.get_metadata('DC', 'creator')[0][0]

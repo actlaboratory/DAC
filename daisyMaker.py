@@ -5,7 +5,7 @@ from comtypes import CoInitialize
 import time
 from pydub import AudioSegment
 import documentParser
-from errors import outputError
+from errors import inputError, outputError
 import voiceMaker
 import daisyBuilder
 
@@ -43,7 +43,10 @@ class daisyMaker(threading.Thread):
     
     def run(self):
         CoInitialize()
-        files, index = documentParser.parseEpub("input.epub", phrase=True)
+        try: files, index = documentParser.parseEpub(self.inputFile, phrase=True)
+        except Exception as e:
+            self.error = inputError(str(e))
+            return
 
         for i in index:
             self.total += len(i["texts"])

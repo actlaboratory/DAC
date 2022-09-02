@@ -46,19 +46,17 @@ class daisyOutputPanel:
     
     def updateConvertProgressThread(self,progress, tBuild):
         countTmp = 0
+        message = False
         while tBuild.finished == False:
             time.sleep(0.1)
             count = tBuild.count
             if countTmp != count:
                 countTmp = count
-                wx.YieldIfNeeded()
-                progress.update(count, None, tBuild.total)
-            if tBuild.error != None:
-                d = mkDialog.Dialog("error dialog")
-                d.Initialize(_("エラー"), _("変換中にエラーが発生しました。処理を中止します。"))
-                d.Show()
-                progress.Destroy()
-        progress.Destroy()
+                wx.CallAfter(progress.update, count, None, tBuild.total)
+            if tBuild.error != None and message == False:
+                message = True
+                wx.CallAfter(self.errorDialog, tBuild)
+        wx.CallAfter(progress.Destroy)
 
     def daisyOutputEvent(self, category, voice, input, output="output"):
         try:
@@ -116,8 +114,8 @@ class daisyOutputPanel:
         self.dirInput.SetLabel(path)
     
     def _onStartButton(self, evt):
-        if self.sapiSelected == 0: self.daisyOutputEvent(daisyMaker.SAPI, self.parent.app.config["SAPI5"]["voice"], self.parent.inputPathInput.GetValue())
-        elif self.sapiSelected == 1: self.daisyOutputEvent(daisyMaker.VOICEVOX, self.parent.app.config["Voicevox"]["voice"], self.parent.inputPathInput.GetValue())
+        if self.sapiSelected == 0: self.daisyOutputEvent(daisyMaker.SAPI, self.parent.app.config["SAPI5"]["voice"], self.parent.inputPathInput.GetValue(), self.dirInput.GetValue())
+        elif self.sapiSelected == 1: self.daisyOutputEvent(daisyMaker.VOICEVOX, self.parent.app.config["Voicevox"]["voice"], self.parent.inputPathInput.GetValue(), self.dirInput.GetValue())
 
     def _onConfigButton(self, evt):
         if self.sapiSelected == 0:
@@ -128,3 +126,9 @@ class daisyOutputPanel:
             d = voicevoxSettingsDialog.Dialog()
             d.Initialize()
             d.Show()
+
+    def errorDialog(self, tBuild):
+        d = mkDialog.Dialog("error dialog")
+        d.Initialize(_("エラー"), _("変換中にエラーが発生しました。処理を中止します。"), ("OK",))
+        r = d.Show()
+        tBuild.finished = True
