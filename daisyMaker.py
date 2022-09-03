@@ -55,7 +55,7 @@ class daisyMaker(threading.Thread):
         _counter = 1
         _outputCounter = 1
         try:
-            os.makedirs(self.outputDir)
+            os.makedirs(self.outputDir, exist_ok=True)
             shutil.rmtree(self.outputDir)
             os.makedirs(".\outputTmp", exist_ok=True)
             os.makedirs(self.outputDir)
