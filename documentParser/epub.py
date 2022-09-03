@@ -9,6 +9,7 @@ import bs4
 from bs4 import BeautifulSoup
 from errors import *
 
+
 def _parseEpubNavPoint(tags, level=1, sources=[], indexes=[], finalize=True):
     for t in tags:
         try:
@@ -59,16 +60,14 @@ def _getTextListWithID(xmlText, startID, endID=False):
     texts = []
     start = False
     for t in tags.descendants:
-        if type(t) != bs4.element.Tag: continue
-        if t.get("id") == startID and t.get("id") == endID and endID != False:
-            return _splitText(t.string)
-        if t.get("id") == endID and endID != False:
-            return texts
-        if t.get("id") == startID and start == False:
-            texts += _splitText(t.string)
-            start = True
-        elif start:
-            texts += _splitText(t.string)
+        if type(t) == bs4.element.Tag:
+            if t.get("id") == startID and t.get("id") == endID and endID != False:
+                return _splitText(t.string)
+            if t.get("id") == endID and endID != False:
+                return texts
+            if t.get("id") == startID:
+                start = True
+        if type(t) == bs4.element.NavigableString and start: texts += _splitText(t)
     return texts
 
 def _appendText2EpubIndex(book, index, phrase=False):

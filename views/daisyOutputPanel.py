@@ -132,3 +132,4 @@ class daisyOutputPanel:
         d.Initialize(_("エラー"), _("変換中にエラーが発生しました。処理を中止します。"), ("OK",))
         r = d.Show()
         tBuild.finished = True
+        print(tBuild.error, flush=True)
