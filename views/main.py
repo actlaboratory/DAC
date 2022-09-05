@@ -79,14 +79,14 @@ class Menu(BaseMenu):
 
 		#オプションメニュー
 		self.RegisterMenuCommand(self.hOptionMenu,{
-			#"OPTION_OPTION": events.option,
+			"OPTION_OPTION": Events.option,
 			#"OPTION_KEY_CONFIG":events.keyConfig,
 		})
 
 		#ヘルプメニュー
 		self.RegisterMenuCommand(self.hHelpMenu,{
-			#"HELP_UPDATE": events.checkUpdate,
-			#"HELP_VERSIONINFO": events.version,
+			"HELP_UPDATE": Events.checkUpdate,
+			"HELP_VERSIONINFO": Events.version,
 		})
 
 		#メニューバーの生成
@@ -114,7 +114,7 @@ class Events(BaseEvents):
 		if path == "" or path == "": return
 		self.parent.inputPathInput.SetLabel(path)
 	
-	def option(self,event):
+	def option(self,event=None):
 		d = settingsDialog.Dialog()
 		d.Initialize()
 		d.Show()
@@ -126,10 +126,10 @@ class Events(BaseEvents):
 			self.parent.menu.ApplyShortcut(self.parent.hFrame)
 			self.parent.menu.Apply(self.parent.hFrame)
 
-	def checkUpdate(self,event):
+	def checkUpdate(self,event=None):
 		update.checkUpdate()
 
-	def version(self,event):
+	def version(self,event=None):
 		d = versionDialog.dialog()
 		d.Initialize()
 		r = d.Show()
