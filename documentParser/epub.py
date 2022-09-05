@@ -82,6 +82,8 @@ def _appendText2EpubIndex(book, index, phrase=False):
         else:
             texts = _getTextListWithID(tags, index[i]["id"])
         index[i]["texts"] = (texts if phrase else [". ".join(texts)])
+        print(index[i]["texts"])
+    print("text return")
     return index
 
 
@@ -118,16 +120,27 @@ def parseEpub(source, phrase=False):
     _appendText2EpubIndex(book, indexes, phrase=phrase)
     if sources != [] and indexes != []:
         return (sources, indexes)
-    items = book.get_items_of_type(ebooklib.ITEM_DOCUMENT)
+    items = book.get_items()
     sources = []
     indexes = []
     for item in items:
-        print(item.get_name())
+        if item.get_type() != ebooklib.ITEM_DOCUMENT: continue
         try:
             xml = item.get_content().decode()
             soup = BeautifulSoup(xml, "lxml-xml")
+            labelObject = soup.find("h1")
+            label = labelObject.text if labelObject != None else ""
+            sources.append(item.get_name())
+            indexes.append({
+                "id": None,
+                "file": item.get_name(),
+                "label": label,
+                "level": 1
+            })
         except Exception as e:
             raise inputError(str(e))
+    _appendText2EpubIndex(book, indexes, phrase=phrase)
+    return (sources, indexes)
     
 
 if __name__ == '__main__':
