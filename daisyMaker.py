@@ -79,7 +79,8 @@ class daisyMaker(threading.Thread):
                 self.count += 1
                 time.sleep(0.001)
             for f in audioTmps:
-                try: audioTmp = AudioSegment.from_file(f, "wav")
+                try:
+                    audioTmp = (AudioSegment.from_file(f, "wav")) + (AudioSegment.silent(duration=500))
                 except Exception as e:
                     self.error = outputError(str(e))
                     return
