@@ -1,3 +1,4 @@
+import os
 import time
 import wx
 import threading
@@ -116,6 +117,14 @@ class daisyOutputPanel:
         self.dirInput.SetLabel(path)
     
     def _onStartButton(self, evt):
+        message = []
+        if os.path.exists(self.parent.inputPathInput.GetValue()) == False: message.append(_("変換元が正しく指定されていません。"))
+        if self.dirInput.GetValue() == "": message.append(_("出力先が指定されていません。"))
+        if len(message) != 0:
+            message.insert(0, _("変換できません。設定内容を確認してください。"))
+            d = mkDialog.Dialog("error dialog")
+            d.Initialize(_("エラー"), "\n".join(message), ("OK",))
+            return d.Show()
         if self.sapiSelected == 0: self.daisyOutputEvent(daisyMaker.SAPI, self.parent.app.config["SAPI5"]["voice"], self.parent.inputPathInput.GetValue(), self.dirInput.GetValue())
         elif self.sapiSelected == 1: self.daisyOutputEvent(daisyMaker.VOICEVOX, self.parent.app.config["Voicevox"]["voice"], self.parent.inputPathInput.GetValue(), self.dirInput.GetValue())
 
