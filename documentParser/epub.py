@@ -82,8 +82,7 @@ def _appendText2EpubIndex(book, index, phrase=False):
         else:
             texts = _getTextListWithID(tags, index[i]["id"])
         index[i]["texts"] = (texts if phrase else [". ".join(texts)])
-        print(index[i]["texts"])
-    print("text return")
+        #print(index[i]["texts"])
     return index
 
 
@@ -109,7 +108,7 @@ def parseEpub(source, phrase=False):
     sources = []
     indexes = []
     for item in items:
-        print(item.get_name())
+        #print(item.get_name())
         try:
             xml = item.get_content().decode()
             soup = BeautifulSoup(xml, "lxml-xml")
