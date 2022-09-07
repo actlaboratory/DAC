@@ -56,6 +56,8 @@ class daisyOutputPanel:
             if tBuild.error != None and message == False:
                 message = True
                 wx.CallAfter(self.errorDialog, tBuild)
+            if progress.status == wx.CANCEL:
+                tBuild.cancel()
         wx.CallAfter(progress.Destroy)
 
     def daisyOutputEvent(self, category, voice, input, output="output"):

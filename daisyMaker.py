@@ -40,7 +40,12 @@ class daisyMaker(threading.Thread):
         self.total = 0
         self.count = 0
         self.finished = False
+        self.canceled = False
         self.error = None
+    
+    def cancel(self):
+        self.canceled = True
+        self.finished = True
     
     def run(self):
         CoInitialize()
@@ -63,6 +68,7 @@ class daisyMaker(threading.Thread):
             self.error = outputError(str(e))
             return
         for i in index:
+            if self.canceled: return
             audioTmps = []
             i["beginSeconds"] = []
             i["endSeconds"] = []
@@ -70,6 +76,7 @@ class daisyMaker(threading.Thread):
             i["audioFile"] = None
             audioOutput = None
             for t in i["texts"]:
+                if self.canceled: return
                 fileName = ".\\outputTmp\\%08d.wav" %(_counter,)
                 if self.mode == SAPI: result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
                 elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"])
@@ -79,6 +86,7 @@ class daisyMaker(threading.Thread):
                 self.count += 1
                 time.sleep(0.001)
             for f in audioTmps:
+                if self.canceled: return
                 try:
                     audioTmp = (AudioSegment.from_file(f, "wav")) + (AudioSegment.silent(duration=500))
                 except Exception as e:
