@@ -8,6 +8,7 @@ from ebooklib import epub
 import bs4
 from bs4 import BeautifulSoup
 from errors import *
+from englishToKanaConverter.englishToKanaConverter import EnglishToKanaConverter
 
 
 def _parseEpubNavPoint(tags, level=1, sources=[], indexes=[], finalize=True):
@@ -33,15 +34,16 @@ def _parseFileWithHref(book, href):
     file = book.get_item_with_href(href)
     return file.get_content().decode()
 
-def _splitText(text):
+def _processText(text):
     #print(text)
     if text == None or text == "":
         return []
     split = re.split(r'[。\n]|(?:\. )', text)
     ret = []
+    cnv = EnglishToKanaConverter(False)
     for s in split:
         if s.strip() != "":
-            ret.append(s + ".")
+            ret.append(cnv.process(s) + ".")
     return ret
 
 def _getAllTags(soupTag):
@@ -67,7 +69,7 @@ def _getTextListWithID(xmlText, startID, endID=False):
                 return texts
             if t.get("id") == startID:
                 start = True
-        if type(t) == bs4.element.NavigableString and start: texts += _splitText(t)
+        if type(t) == bs4.element.NavigableString and start: texts += _processText(t)
     return texts
 
 def _appendText2EpubIndex(book, index, phrase=False):
