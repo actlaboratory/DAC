@@ -54,7 +54,7 @@ class daisyMaker(threading.Thread):
             self.error = inputError(str(e))
             return
 
-        outputDir = utils.addDirNameSuffix(os.path.join(self.outputDir, meta["title"]))
+        outputDir = utils.addDirNameSuffix(os.path.join(self.outputDir, utils.makeFileName(meta["title"])))
         
         for i in index:
             self.total += len(i["texts"])

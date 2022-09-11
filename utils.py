@@ -1,5 +1,6 @@
 import os
 import re
+import string
 import globalVars
 import errors
 
@@ -23,3 +24,9 @@ def addDirNameSuffix(path):
         num += 1
     return path
 
+
+def makeFileName(name: str, replace: str):
+    chars = ["\\", "/", ":", "*", "?", "'", '"', "<", ">", "|"]
+    for c in chars:
+        name = name.replace(name, replace)
+    return name
