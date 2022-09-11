@@ -6,9 +6,9 @@ import time
 from pydub import AudioSegment
 import documentParser
 from errors import inputError, outputError
+import utils
 import voiceMaker
 import daisyBuilder
-
 
 # const
 SAPI = 0
@@ -62,7 +62,7 @@ class daisyMaker(threading.Thread):
         try:
             os.makedirs(self.outputDir, exist_ok=True)
             shutil.rmtree(self.outputDir)
-            os.makedirs(".\outputTmp", exist_ok=True)
+            os.makedirs(utils.getTempDir(), exist_ok=True)
             os.makedirs(self.outputDir)
         except Exception as e:
             self.error = outputError(str(e))
@@ -77,9 +77,9 @@ class daisyMaker(threading.Thread):
             audioOutput = None
             for t in i["texts"]:
                 if self.canceled: return
-                fileName = ".\\outputTmp\\%08d.wav" %(_counter,)
+                fileName = os.path.join(utils.getTempDir(), "%08d.wav" %(_counter,))
                 if self.mode == SAPI: result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
-                elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"])
+                elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"], self.options["kanaConvert"])
                 else: return
                 audioTmps.append(fileName)
                 _counter += 1
@@ -111,8 +111,8 @@ class daisyMaker(threading.Thread):
                 _outputCounter += 1
 
         try:
-            shutil.rmtree(".\\outputTmp")
-            os.makedirs(".\outputTmp")
+            shutil.rmtree(utils.getTempDir())
+            os.makedirs(utils.getTempDir())
         except Exception as e:
             self.error = outputError(str(e))
             return

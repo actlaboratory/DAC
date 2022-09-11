@@ -3,6 +3,7 @@
 # Copyright (C) 2021 yamahubuki <itiro.ishino@gmail.com>
 
 
+import os
 import wx
 
 import constants
@@ -71,6 +72,7 @@ class Dialog(BaseDialog):
 		creator=views.ViewCreator.ViewCreator(self.viewMode,self.tab,None,views.ViewCreator.GridBagSizer,label=_("一般"),style=wx.ALL|wx.EXPAND,proportion=1,margin=20)
 		self.logLevel,dummy = creator.combobox(_("ログ記録レベル(&L)"),list(self.logLevelSelection.values()))
 		self.reader, static = creator.combobox(_("出力先(&O)"), list(self.readerSelection.values()))
+		self.tempDir, static = creator.inputbox(_("一時フォルダの場所"))
 
 		# view
 		creator=views.ViewCreator.ViewCreator(self.viewMode,self.tab,None,views.ViewCreator.GridBagSizer,label=_("表示/言語"),style=wx.ALL,margin=20)
@@ -95,6 +97,7 @@ class Dialog(BaseDialog):
 		# general
 		self._setValue(self.reader,"speech","reader",configType.DIC,self.readerSelection)
 		self._setValue(self.logLevel,"general","log_level",configType.DIC,self.logLevelSelection)
+		self._setValue(self.tempDir, "general", "temp_directory", configType.STRING, os.path.join(os.environ["temp"], "actlab_DAC-temp"))
 
 		# view
 		self._setValue(self.language,"general","language",configType.DIC,self.languageSelection)

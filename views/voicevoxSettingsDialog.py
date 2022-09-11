@@ -74,7 +74,7 @@ class Dialog(BaseDialog):
 
 	def load(self):
 		self._setValue(self.voice, "Voicevox","voice", configType.DIC, self.voiceSelection, list(self.voiceSelection.keys())[0])
-		self._setValue(self.kana, "Voicevox", "englishToKana", configType.BOOL, False)
+		self._setValue(self.kana, "Voicevox", "kanaConvert", configType.BOOL, False)
 
 
 	def onOkButton(self, event):

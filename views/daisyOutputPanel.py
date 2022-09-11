@@ -79,7 +79,8 @@ class daisyOutputPanel:
                     if v["name"] == voice: id = v["id"]
                 if id == None: return
                 tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.VOICEVOX, {
-                    "voiceID": id
+                    "voiceID": id,
+                    "kanaConvert": self.parent.app.config["Voicevox"]["kanaConvert"]
                 })
             else:
                 return
