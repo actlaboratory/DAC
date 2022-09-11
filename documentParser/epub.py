@@ -26,8 +26,8 @@ def _parseEpubNavPoint(tags, level=1, sources=[], indexes=[], finalize=True):
         sources = sorted(sources)
         sources = [item[1] for item in sources]
         sources = sorted(set(sources), key=sources.index)
-        return (sources, indexes)
-    return (sources, indexes)
+        return (sources, indexes, meta)
+    return (sources, indexes, meta)
 
 def _parseFileWithHref(book, href):
     file = book.get_item_with_href(href)
@@ -118,7 +118,7 @@ def parseEpub(source, phrase=False):
             raise inputError(str(e))
     _appendText2EpubIndex(book, indexes, phrase=phrase)
     if sources != [] and indexes != []:
-        return (sources, indexes)
+        return (sources, indexes, meta)
     items = book.get_items()
     sources = []
     indexes = []
@@ -139,11 +139,11 @@ def parseEpub(source, phrase=False):
         except Exception as e:
             raise inputError(str(e))
     _appendText2EpubIndex(book, indexes, phrase=phrase)
-    return (sources, indexes)
+    return (sources, indexes, meta)
     
 
 if __name__ == '__main__':
-    s, i = parseEpub("input.epub") 
+    s, i, m = parseEpub("input.epub") 
     print(json.dumps(i, indent=2, ensure_ascii=False))
     total = 0
     for v in i:

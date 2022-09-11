@@ -49,21 +49,21 @@ class daisyMaker(threading.Thread):
     
     def run(self):
         CoInitialize()
-        try: files, index = documentParser.parseEpub(self.inputFile, phrase=True)
+        try: files, index, meta = documentParser.parseEpub(self.inputFile, phrase=True)
         except Exception as e:
             self.error = inputError(str(e))
             return
 
+        outputDir = utils.addDirNameSuffix(os.path.join(self.outputDir, meta["title"]))
+        
         for i in index:
             self.total += len(i["texts"])
         
         _counter = 1
         _outputCounter = 1
         try:
-            os.makedirs(self.outputDir, exist_ok=True)
-            shutil.rmtree(self.outputDir)
+            os.makedirs(outputDir)
             os.makedirs(utils.getTempDir(), exist_ok=True)
-            os.makedirs(self.outputDir)
         except Exception as e:
             self.error = outputError(str(e))
             return
@@ -101,7 +101,7 @@ class daisyMaker(threading.Thread):
                 i["endSeconds"].append(audioOutput.duration_seconds)
             
             if audioOutput != None:
-                outputFile = os.path.join(self.outputDir, "audio%08d.mp3" %(_outputCounter,))
+                outputFile = os.path.join(outputDir, "audio%08d.mp3" %(_outputCounter,))
                 try: audioOutput.export(outputFile, format="mp3")
                 except Exception as e:
                     self.error = outputError(str(e))
@@ -118,6 +118,6 @@ class daisyMaker(threading.Thread):
             return
         
         builder = daisyBuilder.DaisyBuilder()
-        builder.build(index, self.outputDir)
+        builder.build(index, outputDir)
         self.finished = True
 
