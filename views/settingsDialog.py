@@ -73,6 +73,7 @@ class Dialog(BaseDialog):
 		self.logLevel,dummy = creator.combobox(_("ログ記録レベル(&L)"),list(self.logLevelSelection.values()))
 		self.reader, static = creator.combobox(_("出力先(&O)"), list(self.readerSelection.values()))
 		self.tempDir, static = creator.inputbox(_("一時フォルダの場所"))
+		browseButton = creator.button(_("参照"), self._onBrowseButton)
 
 		# view
 		creator=views.ViewCreator.ViewCreator(self.viewMode,self.tab,None,views.ViewCreator.GridBagSizer,label=_("表示/言語"),style=wx.ALL,margin=20)
@@ -143,6 +144,15 @@ class Dialog(BaseDialog):
 			obj.SetValue(conf.getstring(section,key,prm,prm2))
 		self.iniDic[obj]=(t,section,key,prm,prm2)
 
+	def _onBrowseButton(self, evt):
+		d = wx.DirDialog(None, _("出力先フォルダの選択"), style=wx.FD_SAVE)
+		r = d.ShowModal()
+		if r != wx.ID_OK: return
+		path = d.GetPath()
+		if path == None or path == "": return
+		self.tempDir.SetLabel(path)
+	
+	
 	def _save(self):
 		conf = self.app.config
 		for obj,v in self.iniDic.items():
