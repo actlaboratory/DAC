@@ -2,8 +2,13 @@ import requests
 import json
 import time
 from errors import *
+from englishToKanaConverter. englishToKanaConverter import EnglishToKanaConverter
 
-def outputVoicevoxSpeech(text, filename, speaker=2, max_retry=10):
+def outputVoicevoxSpeech(text, filename, speaker=2, kanaConvert=False, max_retry=10):
+    # カナ処理
+    cnv = EnglishToKanaConverter(False)
+    if kanaConvert: text = cnv.process(text)
+    
     # Internal Server Error(500)が出ることがあるのでリトライする
     # （HTTPAdapterのretryはうまくいかなかったので独自実装）
     # connect timeoutは10秒、read timeoutは3000秒に設定（長文対応）
