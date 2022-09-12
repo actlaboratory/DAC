@@ -24,3 +24,6 @@ dist/
 *.bat
 runCMD.bat
 .workspace.code-workspace
+
+# translation backup files
+*.po~
