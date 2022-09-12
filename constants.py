@@ -20,8 +20,8 @@ APP_COPYRIGHT_MESSAGE = "Copyright (c) %s %s All lights reserved." % (APP_COPYRI
 SUPPORTING_LANGUAGE={"ja-JP": "日本語","en-US": "English"}
 
 #各種ファイル名
-LOG_PREFIX="app"
-LOG_FILE_NAME="application.log"
+LOG_PREFIX="dac"
+LOG_FILE_NAME="dac.log"
 SETTING_FILE_NAME="settings.ini"
 KEYMAP_FILE_NAME="keymap.ini"
 
@@ -40,7 +40,7 @@ FULL_CHECKED=wx.CHK_CHECKED
 BASE_PACKAGE_URL = None
 PACKAGE_CONTAIN_ITEMS = ()#パッケージに含めたいファイルやfolderがあれば指定
 NEED_HOOKS = ()#pyinstallerのhookを追加したい場合は指定
-STARTUP_FILE = "application.py"#起動用ファイルを指定
+STARTUP_FILE = "dac.py"#起動用ファイルを指定
 UPDATER_URL = "https://github.com/actlaboratory/updater/releases/download/1.0.0/updater.zip"
 
 # update情報
