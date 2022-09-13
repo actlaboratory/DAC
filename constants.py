@@ -40,7 +40,7 @@ FULL_CHECKED=wx.CHK_CHECKED
 BASE_PACKAGE_URL = None
 PACKAGE_CONTAIN_ITEMS = ()#パッケージに含めたいファイルやfolderがあれば指定
 NEED_HOOKS = ()#pyinstallerのhookを追加したい場合は指定
-STARTUP_FILE = "application.py"#起動用ファイルを指定
+STARTUP_FILE = "DAC.py"#起動用ファイルを指定
 UPDATER_URL = "https://github.com/actlaboratory/updater/releases/download/1.0.0/updater.zip"
 
 # update情報
