@@ -31,7 +31,7 @@ class daisyOutputPanel:
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
         sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), self.sapiSelection, None, self.sapiSelected)
         sapiCombo.Bind(wx.EVT_COMBOBOX, self._onSapiSelected)
-        configButton = horizontalCreator.button(_("詳細設定"), self._onConfigButton)
+        configButton = horizontalCreator.button(_("設定"), self._onConfigButton)
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
         controlButton = horizontalCreator.button(_("開始"), self._onStartButton)
         self.created = True
