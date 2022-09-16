@@ -31,7 +31,7 @@ class daisyOutputPanel:
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
         sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), self.sapiSelection, None, self.sapiSelected)
         sapiCombo.Bind(wx.EVT_COMBOBOX, self._onSapiSelected)
-        configButton = horizontalCreator.button(_("詳細設定"), self._onConfigButton)
+        configButton = horizontalCreator.button(_("設定"), self._onConfigButton)
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
         controlButton = horizontalCreator.button(_("開始"), self._onStartButton)
         self.created = True
@@ -68,7 +68,7 @@ class daisyOutputPanel:
                 pointer = None
                 for v in voices:
                     if v["name"] == voice: pointer = v["pointer"]
-                if pointer == None: return
+                if pointer == None: raise engineError("SAPI voice not found")
                 tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.SAPI, {
                     "voicePointer": pointer
                 })
@@ -77,7 +77,7 @@ class daisyOutputPanel:
                 id = None
                 for v in voices:
                     if v["name"] == voice: id = v["id"]
-                if id == None: return
+                if id == None: raise engineError("Voicevox voice not found")
                 tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.VOICEVOX, {
                     "voiceID": id,
                     "kanaConvert": self.parent.app.config["Voicevox"]["kanaConvert"]
@@ -90,7 +90,7 @@ class daisyOutputPanel:
             return d.Show()
         except engineError as e:
             d = mkDialog.Dialog("error dialog")
-            d.Initialize(_("エラー"), _("音声の呼び出しに失敗しました。音声エンジンの設定をご確認ください。"), ("OK",))
+            d.Initialize(_("エラー"), _("音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"), ("OK",))
             return d.Show()
         except Exception as e:
             d = mkDialog.Dialog("error dialog")
