@@ -40,12 +40,16 @@ class daisyMaker(threading.Thread):
         self.total = 0
         self.count = 0
         self.finished = False
+        self.exited = False
         self.canceled = False
         self.error = None
     
     def cancel(self):
         self.canceled = True
-        self.finished = True
+        self.exited = True
+
+    def exit(self):
+        self.exited = True
     
     def run(self):
         CoInitialize()

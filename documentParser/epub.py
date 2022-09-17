@@ -26,7 +26,7 @@ def _parseEpubNavPoint(tags, level=1, sources=[], indexes=[], finalize=True):
         sources = sorted(sources)
         sources = [item[1] for item in sources]
         sources = sorted(set(sources), key=sources.index)
-        return (sources, indexes, meta)
+        return (sources, indexes)
     return (sources, indexes, meta)
 
 def _parseFileWithHref(book, href):
