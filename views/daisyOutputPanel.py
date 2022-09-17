@@ -48,7 +48,8 @@ class daisyOutputPanel:
     def updateConvertProgressThread(self,progress, tBuild):
         countTmp = 0
         message = False
-        while tBuild.finished == False:
+        showProgress = True
+        while tBuild.exited == False:
             time.sleep(0.1)
             count = tBuild.count
             if countTmp != count:
@@ -57,6 +58,9 @@ class daisyOutputPanel:
             if tBuild.error != None and message == False:
                 message = True
                 wx.CallAfter(self.errorDialog, tBuild)
+            if tBuild.finished == True and message == False:
+                message = True
+                wx.CallAfter(self.successDialog, tBuild)
             if progress.status == wx.CANCEL:
                 tBuild.cancel()
         wx.CallAfter(progress.Destroy)
@@ -143,5 +147,13 @@ class daisyOutputPanel:
         d = mkDialog.Dialog("error dialog")
         d.Initialize(_("エラー"), _("変換中にエラーが発生しました。処理を中止します。"), ("OK",))
         r = d.Show()
-        tBuild.finished = True
+        tBuild.exit()
         print(tBuild.error, flush=True)
+
+    def successDialog(self, tBuild):
+        d = mkDialog.Dialog("convert success dialog")
+        d.Initialize(_("完了"), _("変換が完了しました。"), ("OK",))
+        r = d.Show()
+        tBuild.exit()
+        print(tBuild.error, flush=True)
+
