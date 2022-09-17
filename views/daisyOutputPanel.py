@@ -1,8 +1,10 @@
 import os
+import winsound
 import time
 import wx
 import threading
 
+import constants
 import views
 from errors import *
 from views import mkDialog
@@ -151,9 +153,10 @@ class daisyOutputPanel:
         print(tBuild.error, flush=True)
 
     def successDialog(self, tBuild):
+        winsound.PlaySound(constants.SOUND_SUCCESS, winsound.SND_ASYNC)
         d = mkDialog.Dialog("convert success dialog")
         d.Initialize(_("完了"), _("変換が完了しました。"), ("OK",))
         r = d.Show()
         tBuild.exit()
-        print(tBuild.error, flush=True)
+        print("convert success.", flush=True)
 

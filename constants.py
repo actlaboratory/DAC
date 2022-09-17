@@ -49,3 +49,6 @@ UPDATER_VERSION = "1.0.0"
 UPDATER_WAKE_WORD = "hello"
 
 
+
+# 音声ファイル
+SOUND_SUCCESS = "success.wav"
