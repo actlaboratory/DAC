@@ -86,7 +86,7 @@ def _appendText2EpubIndex(book, index, phrase=False):
     return index
 
 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+#sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def parseEpub(source, phrase=False):
     try: book = epub.read_epub(source)
