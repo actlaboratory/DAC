@@ -22,9 +22,11 @@ Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 ・AGPL v3.0に基づく以下のライブラリ
 	ebooklib　(https://pypi.org/project/EbookLib/)
 
-
-
-
 その他、個別のライセンスに基づく複数のライブラリ
 
 各ライセンスは、licensesディレクトリ内に格納されています。
+
+
+※本ソフトウェアに同梱されている以下のファイルは、各配付元にて使用条件が規定されている著作物です。
+
+・success.wav　(TAM Music Factory - https://www.tam-music.com/)
