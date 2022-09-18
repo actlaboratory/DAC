@@ -16,7 +16,6 @@ from .base import *
 from simpleDialog import *
 
 from views import globalKeyConfig
-from views import sample
 from views import settingsDialog
 from views import versionDialog
 from views import daisyOutputPanel
