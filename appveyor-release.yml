@@ -16,8 +16,8 @@ environment:
 
 install:
   # We need wheel installed to build wheels
-  - cmd: git submodule init
-  - cmd: git submodule update
+  # - cmd: git submodule init
+  # - cmd: git submodule update
   - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
 
 build: off
