@@ -74,9 +74,9 @@ class Menu(BaseMenu):
 		self.hHelpMenu=wx.Menu()
 
 		#ファイルメニュー
-		self.RegisterMenuCommand(self.hFileMenu,[
-				"FILE_EXAMPLE",
-		])
+		self.RegisterMenuCommand(self.hFileMenu,{
+			"FILE_EXIT": self.parent.events.exit,
+		})
 
 		#オプションメニュー
 		self.RegisterMenuCommand(self.hOptionMenu,{
@@ -97,10 +97,8 @@ class Menu(BaseMenu):
 		target.SetMenuBar(self.hMenuBar)
 
 class Events(BaseEvents):
-	def example(self,event):
-		d = sample.Dialog()
-		d.Initialize()
-		r = d.Show()
+	def exit(self, event):
+		self.parent.hFrame.Close()
 
 	def inputBrowse(self, evt):
 		category = self.parent.inputCategoryCombo.GetValue()
