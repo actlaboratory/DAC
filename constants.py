@@ -10,11 +10,11 @@ APP_NAME="DAC"#アプリケーションの名前
 APP_ICON = None
 APP_VERSION="0.0.1"
 APP_LAST_RELEASE_DATE="20xx-xx-xx"
-APP_COPYRIGHT_YEAR="20xx"
-APP_LICENSE="Apache License 2.0"
-APP_DEVELOPERS="anonymous"
-APP_DEVELOPERS_URL="https://example.com/"
-APP_DETAILS_URL="https://example.com/template"
+APP_COPYRIGHT_YEAR="2022"
+APP_LICENSE="GNU AFFERO GENERAL PUBLIC LICENSE Version3"
+APP_DEVELOPERS="Hiroki Fujii - ACT Laboratory"
+APP_DEVELOPERS_URL="https://actlab.org/"
+APP_DETAILS_URL="https://actlab.org/software/DAC"
 APP_COPYRIGHT_MESSAGE = "Copyright (c) %s %s All lights reserved." % (APP_COPYRIGHT_YEAR, APP_DEVELOPERS)
 
 SUPPORTING_LANGUAGE={"ja-JP": "日本語","en-US": "English"}
