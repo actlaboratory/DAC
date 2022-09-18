@@ -8,7 +8,7 @@ from errors import *
 
 def outputVoicevoxSpeech(text, filename, speaker=2, kanaConvert=False, max_retry=10):
     # カナ処理
-    cnv = EnglishToKanaConverter(False)
+    #cnv = EnglishToKanaConverter(False)
     #if kanaConvert: text = cnv.process(text)
     
     # Internal Server Error(500)が出ることがあるのでリトライする
