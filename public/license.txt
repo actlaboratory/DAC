@@ -17,13 +17,17 @@ Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 ・MITライセンスに基づく以下のライブラリ
 	AccessibleOutput2　(https://pypi.org/project/accessible-output2/)
 	comtypes　(https://pypi.org/project/comtypes/)
+		Copyright (c) 2006-2013, Thomas Heller.
+		Copyright (c) 2014, Comtypes Developers.
 	pydub　(https://pypi.org/project/pydub/)
+		Copyright (c) 2011 James Robert, http://jiaaro.com
 
 ・GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3に基づく以下のライブラリ
 	ebooklib　(https://pypi.org/project/EbookLib/)
+		Copyright (c) 2013 Aleksandar Erkalovic <aerkalov@gmail.com
 
 ・GNU GENERAL PUBLIC LICENSE(GPL) v3に基づく以下のライブラリ
-	ffmpeg
+	ffmpeg　(https://git.ffmpeg.org/ffmpeg.git)
 
 その他、個別のライセンスに基づく複数のライブラリ
 
