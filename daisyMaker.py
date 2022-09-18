@@ -84,9 +84,13 @@ class daisyMaker(threading.Thread):
             for t in i["texts"]:
                 if self.canceled: return
                 fileName = os.path.join(utils.getTempDir(), "%08d.wav" %(_counter,))
-                if self.mode == SAPI: result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
-                elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"], self.options["kanaConvert"])
-                else: return
+                try:
+                    if self.mode == SAPI: result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
+                    elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"], self.options["kanaConvert"])
+                    else: return
+                except Exception as e:
+                    self.error = e
+                    return
                 audioTmps.append(fileName)
                 _counter += 1
                 self.count += 1
