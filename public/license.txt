@@ -19,8 +19,11 @@ Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 	comtypes　(https://pypi.org/project/comtypes/)
 	pydub　(https://pypi.org/project/pydub/)
 
-・AGPL v3.0に基づく以下のライブラリ
+・GNU AFFERO GENERAL PUBLIC LICENSE (AGPL) v3に基づく以下のライブラリ
 	ebooklib　(https://pypi.org/project/EbookLib/)
+
+・GNU GENERAL PUBLIC LICENSE(GPL) v3に基づく以下のライブラリ
+	ffmpeg
 
 その他、個別のライセンスに基づく複数のライブラリ
 
