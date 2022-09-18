@@ -88,7 +88,7 @@ class daisyOutputPanel:
                 if id == None: raise engineError("Voicevox voice not found")
                 tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.VOICEVOX, {
                     "voiceID": id,
-                    "kanaConvert": self.parent.app.config["Voicevox"]["kanaConvert"]
+                    "kanaConvert": False, #self.parent.app.config["Voicevox"]["kanaConvert"]
                 })
             else:
                 return

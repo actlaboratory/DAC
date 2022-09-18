@@ -66,7 +66,7 @@ class Dialog(BaseDialog):
 		# tab
 		self.creator=views.ViewCreator.ViewCreator(self.viewMode,self.panel,self.sizer,wx.VERTICAL,20)
 		self.voice, damy = self.creator.combobox(_("声"), list(self.voiceSelection.values()))
-		self.kana = self.creator.checkbox(_("英語をカタカナに変換する"))
+		#self.kana = self.creator.checkbox(_("英語をカタカナに変換する"))
 
 		# buttons
 		creator=views.ViewCreator.ViewCreator(self.viewMode,self.panel,self.sizer,wx.HORIZONTAL,style=wx.ALIGN_RIGHT)
@@ -75,7 +75,7 @@ class Dialog(BaseDialog):
 
 	def load(self):
 		self._setValue(self.voice, "Voicevox","voice", configType.DIC, self.voiceSelection, list(self.voiceSelection.keys())[0])
-		self._setValue(self.kana, "Voicevox", "kanaConvert", configType.BOOL, False)
+		#self._setValue(self.kana, "Voicevox", "kanaConvert", configType.BOOL, False)
 
 
 	def onOkButton(self, event):
