@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-# settings dialog
+#sapi5 settings dialog
 # Copyright (C) 2021 yamahubuki <itiro.ishino@gmail.com>
+# Copyright (c)2022 Hiroki Fujii <hfujii@hisystron.com>
 
 
 from email.policy import default

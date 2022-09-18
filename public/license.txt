@@ -1,6 +1,6 @@
 Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 
-本ソフトウェアは、Apache License 2.0の条件に従い、自由に利用することができます。
+本ソフトウェアは、GNU AFFERO GENERAL PUBLIC LICENSE Version3の条件に従い、自由に利用することができます。
 本ソフトウェアのソースコードは、readme.txtに記載のURLよりダウンロード可能です。
 
 ※本ソフトウェアには、以下の各ライセンスに従い他者の成果物を含みます。

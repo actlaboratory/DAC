@@ -2,6 +2,7 @@
 #main view
 #Copyright (C) 2019 Yukio Nozawa <personal@nyanchangames.com>
 #Copyright (C) 2019-2021 yamahubuki <itiro.ishino@gmail.com>
+# Copyright (C) 2022 Hiroki Fujii <hfujii@hisystron.com>
 
 import time, threading
 import wx

@@ -1,3 +1,5 @@
+# Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
+
 import re
 
 SMIL_DEFINE = """<?xml version="1.0" encoding="UTF-8"?>

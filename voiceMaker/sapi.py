@@ -1,3 +1,5 @@
+# Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
+
 from comtypes.client import CreateObject
 from errors import *
 

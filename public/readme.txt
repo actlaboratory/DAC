@@ -5,7 +5,7 @@
 	開発・配布元:　ACT Laboratory　(https://actlab.org/)
 	主要開発者:　　藤井弘毅
 　　ソフト種別:　　オープンソースソフトウェア　(GitHubリポジトリ:https://github.com/actlaboratory/DAC/)
-　　ライセンス:　　GPLv2 or later
+　　ライセンス:　　AGPL v3
 
 第１章　はじめに
 １．１　Document to Audio book Converter(DAC)の概要
