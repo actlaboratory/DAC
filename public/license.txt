@@ -1,4 +1,4 @@
-Copyright (c)2021 Kazto kashiwamochi,ACT laboratory All rights reserved.
+Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 
 本ソフトウェアは、Apache License 2.0の条件に従い、自由に利用することができます。
 本ソフトウェアのソースコードは、readme.txtに記載のURLよりダウンロード可能です。
@@ -16,9 +16,11 @@ Copyright (c)2021 Kazto kashiwamochi,ACT laboratory All rights reserved.
 
 ・MITライセンスに基づく以下のライブラリ
 	AccessibleOutput2　(https://pypi.org/project/accessible-output2/)
+	comtypes　(https://pypi.org/project/comtypes/)
+	pydub　(https://pypi.org/project/pydub/)
 
-・MS-PLに基づく以下のライブラリ
-	DotNetZip
+・AGPL v3.0に基づく以下のライブラリ
+	ebooklib　(https://pypi.org/project/EbookLib/)
 
 
 
