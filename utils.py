@@ -20,7 +20,7 @@ def getTempDir():
 def addDirNameSuffix(path):
     dir = os.path.dirname(path)
     file = os.path.basename(path)
-    num = 0
+    num = 1
     while os.path.exists(path):
         path = os.path.join(dir, "%s (%d)" %(file, num))
         num += 1
