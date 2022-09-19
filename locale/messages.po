@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the test package.
+# This file is distributed under the same license as the DAC package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: test\n"
+"Project-Id-Version: DAC\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-12 16:04+0900\n"
+"POT-Creation-Date: 2022-09-19 11:34+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgid "この組み合わせは別の用途で予約されているため、利�
 msgstr ""
 
 #: menuItemsDic.py:12
-msgid "テストダイアログを閲覧"
+msgid "終了(&X)"
 msgstr ""
 
 #: menuItemsDic.py:14 views\main.py:94
@@ -149,78 +149,89 @@ msgid ""
 "\n"
 msgstr ""
 
-#: views\base.py:119 views\daisyOutputPanel.py:89 views\daisyOutputPanel.py:93
-#: views\daisyOutputPanel.py:97 views\daisyOutputPanel.py:127
-#: views\daisyOutputPanel.py:144 views\fontManager.py:25
+#: views\base.py:119 views\daisyOutputPanel.py:97 views\daisyOutputPanel.py:101
+#: views\daisyOutputPanel.py:105 views\daisyOutputPanel.py:135
+#: views\daisyOutputPanel.py:152 views\fontManager.py:25
 #: views\fontManager.py:50 views\globalKeyConfig.py:61
 #: views\KeyValueSettingDialogBase.py:297
 #: views\KeyValueSettingDialogBase.py:348 views\updateDialog.py:66
-#: views\voicevoxSettingsDialog.py:41 views\voicevoxSettingsDialog.py:47
+#: views\voicevoxSettingsDialog.py:42 views\voicevoxSettingsDialog.py:48
 msgid "エラー"
 msgstr ""
 
-#: views\daisyOutputPanel.py:20
+#: views\daisyOutputPanel.py:24
 msgid "Microsoft SAPI5"
 msgstr ""
 
-#: views\daisyOutputPanel.py:20
+#: views\daisyOutputPanel.py:24
 msgid "Voicevox"
 msgstr ""
 
-#: views\daisyOutputPanel.py:28
+#: views\daisyOutputPanel.py:32
 msgid "出力先"
 msgstr ""
 
-#: views\daisyOutputPanel.py:30 views\main.py:54 views\settingsDialog.py:76
+#: views\daisyOutputPanel.py:34 views\main.py:54 views\settingsDialog.py:76
 msgid "参照"
 msgstr ""
 
-#: views\daisyOutputPanel.py:32
+#: views\daisyOutputPanel.py:36
 msgid "音声エンジン"
 msgstr ""
 
-#: views\daisyOutputPanel.py:34
-msgid "詳細設定"
+#: views\daisyOutputPanel.py:38 views\globalKeyConfig.py:75
+#: views\sapi5SettingsDialog.py:34 views\settingsDialog.py:58
+#: views\voicevoxSettingsDialog.py:36
+msgid "設定"
 msgstr ""
 
-#: views\daisyOutputPanel.py:36
+#: views\daisyOutputPanel.py:40
 msgid "開始"
 msgstr ""
 
-#: views\daisyOutputPanel.py:89
+#: views\daisyOutputPanel.py:97
 msgid "音声エンジンに接続できませんでした。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:93
-msgid "音声の呼び出しに失敗しました。音声エンジンの設定をご確認ください。"
+#: views\daisyOutputPanel.py:101
+msgid ""
+"音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:97
+#: views\daisyOutputPanel.py:105
 msgid "音声の呼び出し中にエラーが発生しました。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:102
+#: views\daisyOutputPanel.py:110
 msgid "処理中"
 msgstr ""
 
-#: views\daisyOutputPanel.py:113 views\settingsDialog.py:148
+#: views\daisyOutputPanel.py:121 views\settingsDialog.py:148
 msgid "出力先フォルダの選択"
 msgstr ""
 
-#: views\daisyOutputPanel.py:122
+#: views\daisyOutputPanel.py:130
 msgid "変換元が正しく指定されていません。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:123
+#: views\daisyOutputPanel.py:131
 msgid "出力先が指定されていません。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:125
+#: views\daisyOutputPanel.py:133
 msgid "変換できません。設定内容を確認してください。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:144
+#: views\daisyOutputPanel.py:152
 msgid "変換中にエラーが発生しました。処理を中止します。"
+msgstr ""
+
+#: views\daisyOutputPanel.py:160
+msgid "完了"
+msgstr ""
+
+#: views\daisyOutputPanel.py:160
+msgid "変換が完了しました。"
 msgstr ""
 
 #: views\fontManager.py:25
@@ -244,7 +255,7 @@ msgstr ""
 msgid "識別子"
 msgstr ""
 
-#: views\globalKeyConfig.py:31 views\main.py:123
+#: views\globalKeyConfig.py:31 views\main.py:121
 msgid "ショートカットキーの設定"
 msgstr ""
 
@@ -253,7 +264,7 @@ msgstr ""
 #: views\globalKeyConfig.py:120 views\globalKeyConfig.py:128
 #: views\globalKeyConfig.py:138 views\globalKeyConfig.py:143
 #: views\keyConfig.py:57 views\KeyValueSettingDialogBase.py:333
-#: views\main.py:155 views\main.py:168
+#: views\main.py:153 views\main.py:166
 msgid "なし"
 msgstr ""
 
@@ -283,11 +294,6 @@ msgstr ""
 
 #: views\globalKeyConfig.py:74
 msgid "ショートカット5"
-msgstr ""
-
-#: views\globalKeyConfig.py:75 views\sapi5SettingsDialog.py:33
-#: views\settingsDialog.py:58 views\voicevoxSettingsDialog.py:35
-msgid "設定"
 msgstr ""
 
 #: views\globalKeyConfig.py:80
@@ -347,9 +353,9 @@ msgid "ＯＫ"
 msgstr ""
 
 #: views\KeyValueSettingDialogBase.py:84 views\KeyValueSettingDialogBase.py:275
-#: views\mkDialog.py:31 views\sapi5SettingsDialog.py:52
+#: views\mkDialog.py:31 views\sapi5SettingsDialog.py:53
 #: views\settingsDialog.py:95 views\SimpleInputDialog.py:39
-#: views\updateDialog.py:45 views\voicevoxSettingsDialog.py:73
+#: views\updateDialog.py:45 views\voicevoxSettingsDialog.py:74
 msgid "キャンセル"
 msgstr ""
 
@@ -395,7 +401,7 @@ msgid ""
 "す。\n"
 msgstr ""
 
-#: views\main.py:28 views\main.py:107
+#: views\main.py:28 views\main.py:105
 msgid "EPUBファイル"
 msgstr ""
 
@@ -423,11 +429,11 @@ msgstr ""
 msgid "ヘルプ(&H)"
 msgstr ""
 
-#: views\main.py:108
+#: views\main.py:106
 msgid "変換元ファイルの選択"
 msgstr ""
 
-#: views\main.py:108
+#: views\main.py:106
 msgid "EPUBファイル (.epub)"
 msgstr ""
 
@@ -435,15 +441,7 @@ msgstr ""
 msgid "中止"
 msgstr ""
 
-#: views\sample.py:16
-msgid "サンプル"
-msgstr ""
-
-#: views\sample.py:24
-msgid "OK"
-msgstr ""
-
-#: views\sapi5SettingsDialog.py:47 views\voicevoxSettingsDialog.py:67
+#: views\sapi5SettingsDialog.py:48 views\voicevoxSettingsDialog.py:68
 msgid "声"
 msgstr ""
 
@@ -600,17 +598,13 @@ msgstr ""
 msgid "閉じる"
 msgstr ""
 
-#: views\voicevoxSettingsDialog.py:41
+#: views\voicevoxSettingsDialog.py:42
 msgid ""
 "Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"
 msgstr ""
 
-#: views\voicevoxSettingsDialog.py:47
+#: views\voicevoxSettingsDialog.py:48
 msgid "Voicevoxとの接続中にエラーが発生しました。"
-msgstr ""
-
-#: views\voicevoxSettingsDialog.py:68
-msgid "英語をカタカナに変換する"
 msgstr ""
 
 #: views\web.py:28
