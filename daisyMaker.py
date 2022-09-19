@@ -128,6 +128,6 @@ class daisyMaker(threading.Thread):
             return
         
         builder = daisyBuilder.DaisyBuilder()
-        builder.build(index, outputDir)
+        builder.build(index, meta, outputDir)
         self.finished = True
 
