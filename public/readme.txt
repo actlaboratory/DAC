@@ -1,4 +1,4 @@
-		Document to Audio book Converter -DAC-
+		Document to Audio Converter -DAC-
 
 	バージョン:　　ver.1.0.0
 	リリース:　　　2022-09-19
@@ -8,8 +8,8 @@
 　　ライセンス:　　AGPL v3
 
 第１章　はじめに
-１．１　Document to Audio book Converter(DAC)の概要
-Document to Audio book Converter(DAC)は、書類や電子書籍をオーディオブックに変換するソフトウェアです。
+１．１　Document to Audio Converter(DAC)の概要
+Document to Audio Converter(DAC)は、書類や電子書籍をオーディオブックに変換するソフトウェアです。
 現在、EPUBファイルから音声DAISY2.02への変換が可能です。
 音声は、SAPI5とVoicevoxに対応し、さまざまな声色でオーディオブックを作成することができます。
 

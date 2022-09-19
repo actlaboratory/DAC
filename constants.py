@@ -5,7 +5,7 @@
 import wx
 
 #アプリケーション基本情報
-APP_FULL_NAME = "Document to Audio book Converter"#アプリケーションの完全な名前
+APP_FULL_NAME = "Document to Audio Converter"#アプリケーションの完全な名前
 APP_NAME="DAC"#アプリケーションの名前
 APP_ICON = None
 APP_VERSION="1.0.0"
