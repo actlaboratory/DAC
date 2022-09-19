@@ -1,7 +1,7 @@
 		Document to Audio book Converter -DAC-
 
 	バージョン:　　ver.1.0.0
-	リリース:　　　2022-04-29
+	リリース:　　　2022-09-19
 	開発・配布元:　ACT Laboratory　(https://actlab.org/)
 	主要開発者:　　藤井弘毅
 　　ソフト種別:　　オープンソースソフトウェア　(GitHubリポジトリ:https://github.com/actlaboratory/DAC/)
@@ -37,7 +37,7 @@ DACをコンピュータから削除する場合は、「DAC」フォルダを�
 この章では、DACの基本的な使い方について説明します。
 各メニュー項目や設定項目の詳細については、第４章を参照してください。
 
-変換を行うには、以下の手順を行います。
+変換を行うには、以下の手順で操作します。
 １，変換元のデータの種類を選択します。
 ２，変換元のデータを選択します。
 ３，出力データの種類を選択します。
@@ -59,7 +59,7 @@ DACをコンピュータから削除する場合は、「DAC」フォルダを�
 
 ４．１　ファイル
 ４．１．1　終了　「Alt+F4」
-CRPを終了します。
+DACを終了します。
 
 ４．2　オプション
 ４．2.１　オプション
@@ -139,8 +139,7 @@ An error has occurred. Contact to the developer for further assistance.
 このファイルの内容と行った操作を、開発者までお知らせください。
 
 5.2　音声エンジン個別の注意事項
-5.2.1　
-Voicevoxについて
+5.2.1　Voicevoxについて
 Voicevoxを用いて変換するときは、以下のサイトよりVoicevox本体をダウンロードしてください。
 音声エンジンの設定中や変換処理中は、常にVoicevoxが起動している必要があります。
 https://voicevox.hiroshiba.jp/
