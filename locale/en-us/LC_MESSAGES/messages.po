@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: test\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-19 11:34+0900\n"
+"POT-Creation-Date: 2022-09-19 21:10+0900\n"
 "PO-Revision-Date: 2022-09-19 11:39+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -159,9 +159,9 @@ msgstr ""
 "keyboard shortcut is invalid. Please check for conflicting / unusable key "
 "combinations and key names.\n"
 
-#: views\base.py:119 views\daisyOutputPanel.py:97 views\daisyOutputPanel.py:101
-#: views\daisyOutputPanel.py:105 views\daisyOutputPanel.py:135
-#: views\daisyOutputPanel.py:152 views\fontManager.py:25
+#: views\base.py:119 views\daisyOutputPanel.py:98 views\daisyOutputPanel.py:103
+#: views\daisyOutputPanel.py:108 views\daisyOutputPanel.py:138
+#: views\daisyOutputPanel.py:155 views\fontManager.py:25
 #: views\fontManager.py:50 views\globalKeyConfig.py:61
 #: views\KeyValueSettingDialogBase.py:297
 #: views\KeyValueSettingDialogBase.py:348 views\updateDialog.py:66
@@ -199,48 +199,48 @@ msgstr "settings"
 msgid "開始"
 msgstr "start"
 
-#: views\daisyOutputPanel.py:97
+#: views\daisyOutputPanel.py:98
 msgid "音声エンジンに接続できませんでした。"
 msgstr "Failed to connect to speech synthesizer."
 
-#: views\daisyOutputPanel.py:101
+#: views\daisyOutputPanel.py:103
 msgid ""
 "音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"
 msgstr "Failed to load voice. Set the speech engine from the DAC."
 
-#: views\daisyOutputPanel.py:105
+#: views\daisyOutputPanel.py:108
 msgid "音声の呼び出し中にエラーが発生しました。"
 msgstr "Failed to load speech synthesizer."
 
-#: views\daisyOutputPanel.py:110
+#: views\daisyOutputPanel.py:113
 msgid "処理中"
 msgstr "processing"
 
-#: views\daisyOutputPanel.py:121 views\settingsDialog.py:148
+#: views\daisyOutputPanel.py:124 views\settingsDialog.py:148
 msgid "出力先フォルダの選択"
 msgstr "select destination folder"
 
-#: views\daisyOutputPanel.py:130
+#: views\daisyOutputPanel.py:133
 msgid "変換元が正しく指定されていません。"
 msgstr "Source is not configured correctly."
 
-#: views\daisyOutputPanel.py:131
+#: views\daisyOutputPanel.py:134
 msgid "出力先が指定されていません。"
 msgstr "Destination folder is not configured."
 
-#: views\daisyOutputPanel.py:133
+#: views\daisyOutputPanel.py:136
 msgid "変換できません。設定内容を確認してください。"
 msgstr "Unable to convert. Check the settings."
 
-#: views\daisyOutputPanel.py:152
+#: views\daisyOutputPanel.py:155
 msgid "変換中にエラーが発生しました。処理を中止します。"
 msgstr "An error occurred during conversion. Aborts the process."
 
-#: views\daisyOutputPanel.py:160
+#: views\daisyOutputPanel.py:163
 msgid "完了"
 msgstr "Finish"
 
-#: views\daisyOutputPanel.py:160
+#: views\daisyOutputPanel.py:163
 msgid "変換が完了しました。"
 msgstr "The conversion is complete."
 
@@ -424,8 +424,8 @@ msgid "EPUBファイル"
 msgstr "EPUB files"
 
 #: views\main.py:30
-msgid "音声DAISY図書"
-msgstr "Audio DAISY Books"
+msgid "音声DAISY図書 Ver2.02"
+msgstr "Audio DAISY Books Ver2.02"
 
 #: views\main.py:50
 msgid "変換元データの種類"
