@@ -30,5 +30,5 @@ def addDirNameSuffix(path):
 def makeFileName(name: str, replace: str):
     chars = ["\\", "/", ":", "*", "?", "'", '"', "<", ">", "|"]
     for c in chars:
-        name = name.replace(name, replace)
+        name = name.replace(c, replace)
     return name
