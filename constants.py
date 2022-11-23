@@ -5,11 +5,11 @@
 import wx
 
 #アプリケーション基本情報
-APP_FULL_NAME = "Document to Audio book Converter"#アプリケーションの完全な名前
+APP_FULL_NAME = "Document to Audio Converter"#アプリケーションの完全な名前
 APP_NAME="DAC"#アプリケーションの名前
 APP_ICON = None
 APP_VERSION="1.0.0"
-APP_LAST_RELEASE_DATE="20xx-xx-xx"
+APP_LAST_RELEASE_DATE="2022-09-19"
 APP_COPYRIGHT_YEAR="2022"
 APP_LICENSE="GNU AFFERO GENERAL PUBLIC LICENSE Version3"
 APP_DEVELOPERS="Hiroki Fujii - ACT Laboratory"

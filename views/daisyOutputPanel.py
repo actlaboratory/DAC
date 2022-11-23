@@ -36,7 +36,7 @@ class daisyOutputPanel:
         sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), self.sapiSelection, None, self.sapiSelected)
         sapiCombo.Bind(wx.EVT_COMBOBOX, self._onSapiSelected)
         configButton = horizontalCreator.button(_("設定"), self._onConfigButton)
-        horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
+        horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.ALIGN_RIGHT, space=10)
         controlButton = horizontalCreator.button(_("開始"), self._onStartButton)
         self.created = True
 
@@ -93,14 +93,17 @@ class daisyOutputPanel:
             else:
                 return
         except connectionError as e:
+            self.parent.log.error(str(e))
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声エンジンに接続できませんでした。"), ("OK",))
             return d.Show()
         except engineError as e:
+            self.parent.log.error(str(e))
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"), ("OK",))
             return d.Show()
         except Exception as e:
+            self.parent.log.error(str(e))
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声の呼び出し中にエラーが発生しました。"), ("OK",))
             return d.Show()
@@ -152,7 +155,7 @@ class daisyOutputPanel:
         d.Initialize(_("エラー"), _("変換中にエラーが発生しました。処理を中止します。"), ("OK",))
         r = d.Show()
         tBuild.exit()
-        print(tBuild.error, flush=True)
+        self.parent.log.error(tBuild.error)
 
     def successDialog(self, tBuild):
         winsound.PlaySound(constants.SOUND_SUCCESS, winsound.SND_ASYNC)
@@ -160,5 +163,5 @@ class daisyOutputPanel:
         d.Initialize(_("完了"), _("変換が完了しました。"), ("OK",))
         r = d.Show()
         tBuild.exit()
-        print("convert success.", flush=True)
+        self.parent.log.debug("convert success.")
 

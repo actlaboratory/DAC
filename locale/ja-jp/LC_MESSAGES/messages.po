@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: test\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-19 11:34+0900\n"
+"POT-Creation-Date: 2022-09-19 21:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,9 +149,9 @@ msgid ""
 "\n"
 msgstr ""
 
-#: views\base.py:119 views\daisyOutputPanel.py:97 views\daisyOutputPanel.py:101
-#: views\daisyOutputPanel.py:105 views\daisyOutputPanel.py:135
-#: views\daisyOutputPanel.py:152 views\fontManager.py:25
+#: views\base.py:119 views\daisyOutputPanel.py:98 views\daisyOutputPanel.py:103
+#: views\daisyOutputPanel.py:108 views\daisyOutputPanel.py:138
+#: views\daisyOutputPanel.py:155 views\fontManager.py:25
 #: views\fontManager.py:50 views\globalKeyConfig.py:61
 #: views\KeyValueSettingDialogBase.py:297
 #: views\KeyValueSettingDialogBase.py:348 views\updateDialog.py:66
@@ -189,48 +189,48 @@ msgstr ""
 msgid "開始"
 msgstr ""
 
-#: views\daisyOutputPanel.py:97
+#: views\daisyOutputPanel.py:98
 msgid "音声エンジンに接続できませんでした。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:101
+#: views\daisyOutputPanel.py:103
 msgid ""
 "音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:105
+#: views\daisyOutputPanel.py:108
 msgid "音声の呼び出し中にエラーが発生しました。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:110
+#: views\daisyOutputPanel.py:113
 msgid "処理中"
 msgstr ""
 
-#: views\daisyOutputPanel.py:121 views\settingsDialog.py:148
+#: views\daisyOutputPanel.py:124 views\settingsDialog.py:148
 msgid "出力先フォルダの選択"
 msgstr ""
 
-#: views\daisyOutputPanel.py:130
+#: views\daisyOutputPanel.py:133
 msgid "変換元が正しく指定されていません。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:131
+#: views\daisyOutputPanel.py:134
 msgid "出力先が指定されていません。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:133
+#: views\daisyOutputPanel.py:136
 msgid "変換できません。設定内容を確認してください。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:152
+#: views\daisyOutputPanel.py:155
 msgid "変換中にエラーが発生しました。処理を中止します。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:160
+#: views\daisyOutputPanel.py:163
 msgid "完了"
 msgstr ""
 
-#: views\daisyOutputPanel.py:160
+#: views\daisyOutputPanel.py:163
 msgid "変換が完了しました。"
 msgstr ""
 
@@ -406,7 +406,7 @@ msgid "EPUBファイル"
 msgstr ""
 
 #: views\main.py:30
-msgid "音声DAISY図書"
+msgid "音声DAISY図書 Ver2.02"
 msgstr ""
 
 #: views\main.py:50

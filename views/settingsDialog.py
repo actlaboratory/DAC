@@ -69,11 +69,15 @@ class Dialog(BaseDialog):
 		self.tab = self.creator.tabCtrl(_("カテゴリ選択"))
 
 		# general
-		creator=views.ViewCreator.ViewCreator(self.viewMode,self.tab,None,views.ViewCreator.GridBagSizer,label=_("一般"),style=wx.ALL|wx.EXPAND,proportion=1,margin=20)
-		self.logLevel,dummy = creator.combobox(_("ログ記録レベル(&L)"),list(self.logLevelSelection.values()))
-		self.reader, static = creator.combobox(_("出力先(&O)"), list(self.readerSelection.values()))
-		self.tempDir, static = creator.inputbox(_("一時フォルダの場所"))
-		browseButton = creator.button(_("参照"), self._onBrowseButton)
+		creator=views.ViewCreator.ViewCreator(self.viewMode,self.tab,None,wx.VERTICAL,label=_("一般"),style=wx.ALL|wx.EXPAND,proportion=1,margin=20)
+		grid=views.ViewCreator.ViewCreator(self.viewMode,creator.GetPanel(),creator.GetSizer(),views.ViewCreator.GridBagSizer,style=wx.EXPAND,proportion=1,margin=20)
+
+		self.logLevel,dummy = grid.combobox(_("ログ記録レベル(&L)"),list(self.logLevelSelection.values()))
+		self.reader, static = grid.combobox(_("出力先(&O)"), list(self.readerSelection.values()))
+		self.tempDir, static = creator.inputbox(_("一時フォルダの場所"), textLayout=wx.VERTICAL)
+		self.tempDir.hideScrollBar(wx.HORIZONTAL)
+
+		browseButton = creator.button(_("参照"), self._onBrowseButton, sizerFlag=wx.ALIGN_RIGHT)
 
 		# view
 		creator=views.ViewCreator.ViewCreator(self.viewMode,self.tab,None,views.ViewCreator.GridBagSizer,label=_("表示/言語"),style=wx.ALL,margin=20)

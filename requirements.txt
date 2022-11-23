@@ -2,7 +2,6 @@ comtypes
 bs4
 lxml
 ebooklib
-pydub
 requests
 wxpython==4.1.1
 pywin32

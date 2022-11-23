@@ -27,7 +27,7 @@ class MainView(BaseView):
 		self.INPUT_FILE_CATEGORY_DEFAULT = 0
 		self.INPUT_FILE_CATEGORIES = [_("EPUBファイル")]
 		self.OUTPUT_FILE_CATEGORY_DEFAULT = 0
-		self.OUTPUT_FILE_CATEGORIES = [_("音声DAISY図書")]
+		self.OUTPUT_FILE_CATEGORIES = [_("音声DAISY図書 Ver2.02"),]
 		self.outputPanels = [daisyOutputPanel.daisyOutputPanel(self)]
 
 		super().__init__("mainView")

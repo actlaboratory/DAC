@@ -52,7 +52,7 @@ class DaisyBuilder:
         self.totalDuration += smilDuration
 
 
-    def build(self, index, outputDir="output"):
+    def build(self, index, meta, outputDir="output"):
         self.directory = outputDir
 
         self._appendNcc("<body>")
@@ -61,7 +61,7 @@ class DaisyBuilder:
             self._makeSmil(i)
         self._appendNcc("</body>")
         self._appendNcc("</html>")
-        self.nccTexts.insert(1, fileMetas.makeNccHead("test", "any", self.smilFileCounter, self.totalDuration))
+        self.nccTexts.insert(1, fileMetas.makeNccHead(meta["title"], meta["publisher"], self.smilFileCounter, self.totalDuration))
         with open(os.path.join(self.directory, "ncc.html"), "w", encoding="UTF-8") as f:
             f.write("\n".join(self.nccTexts))
 
