@@ -122,9 +122,8 @@ class epub(documentParserInterface):
                 raise inputError(str(e))
         epub._appendText2EpubIndex(book, indexes, phrase=phrase)
         if sources != [] and indexes != []:
-            return (sources, indexes, meta)
+            return (indexes, meta)
         items = book.get_items()
-        sources = []
         indexes = []
         for item in items:
             if item.get_type() != ebooklib.ITEM_DOCUMENT: continue
@@ -133,7 +132,6 @@ class epub(documentParserInterface):
                 soup = BeautifulSoup(xml, "lxml-xml")
                 labelObject = soup.find("h1")
                 label = labelObject.text if labelObject != None else ""
-                sources.append(item.get_name())
                 indexes.append({
                     "id": None,
                     "file": item.get_name(),
@@ -143,7 +141,7 @@ class epub(documentParserInterface):
             except Exception as e:
                 raise inputError(str(e))
         epub._appendText2EpubIndex(book, indexes, phrase=phrase)
-        return (sources, indexes, meta)
+        return (indexes, meta)
 
     def getDocumentTypeName():
         return _("EPUBファイル")

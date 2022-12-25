@@ -63,12 +63,11 @@ class daisyMaker(threading.Thread):
     
     def run(self):
         CoInitialize()
-        try: files, index, meta = self.parser.parse(self.inputFile, phrase=True)
+        try: index, meta = self.parser.parse(self.inputFile, phrase=True)
         except Exception as e:
             self.log.error(traceback.format_exc())
             self.error = inputError(str(e))
             return
-
         outputDir = utils.addDirNameSuffix(os.path.join(self.outputDir, utils.makeFileName(meta["title"], "_")))
         
         for i in index:
