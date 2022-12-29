@@ -13,8 +13,6 @@ import views.ViewCreator
 
 from enum import Enum,auto
 from views.baseDialog import *
-import daisyMaker
-
 
 class configType(Enum):
 	BOOL = auto()
@@ -24,18 +22,16 @@ class configType(Enum):
 
 
 class Dialog(BaseDialog):
-	def __init__(self):
+	def __init__(self, voices):
 		self.voiceSelection = {}
+		for v in voices:
+			self.voiceSelection[v] = v
 		super().__init__("settingsDialog")
 		self.iniDic = {}			#iniファイルと作ったオブジェクトの対応
 
 	def Initialize(self):
 		self.log.debug("created")
 		super().Initialize(self.app.hMainView.hFrame,_("設定"))
-		voices = ([ v["name"] for v in daisyMaker.getSapiVoices() ])
-		voices.sort()
-		for v in voices:
-			self.voiceSelection[v] = v
 		self.InstallControls()
 		self.load()
 		return True

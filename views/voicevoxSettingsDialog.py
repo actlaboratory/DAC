@@ -10,10 +10,10 @@ import wx
 import constants
 import simpleDialog
 import views.ViewCreator
+import voiceMaker
 
 from enum import Enum,auto
 from views.baseDialog import *
-import daisyMaker
 from errors import *
 from views import mkDialog
 
@@ -36,7 +36,7 @@ class Dialog(BaseDialog):
 		super().Initialize(self.app.hMainView.hFrame,_("設定"))
 		self.hasError = False
 		try:
-			voices = ([ v["name"] for v in daisyMaker.getVoicevoxVoices() ])
+			voices = ([ v["name"] for v in voiceMaker.voicevox.getVoiceSelections() ])
 		except connectionError as e:
 			d = mkDialog.Dialog("error dialog")
 			d.Initialize(_("エラー"), _("Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"), ("OK",))
