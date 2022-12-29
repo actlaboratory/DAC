@@ -50,7 +50,7 @@ def makeNccHead(title, publisher, totalSmilItems, totalDuration):
   <meta name="dc:identifier" content="DAC"/>
   <meta name="dc:language" content="ja" scheme="ISO 639"/>
   <meta name="dc:publisher" content="%s"/>
-  <meta name="dc:title"%s"/>
+  <meta name="dc:title" content="%s"/>
   <meta name="ncc:charset" content="UTF-8"/>
   <meta name="ncc:generator" content="DAC"/>
   <meta name="ncc:pageFront" content="0"/>
