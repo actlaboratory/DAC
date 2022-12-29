@@ -1,19 +1,22 @@
 # Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 
 import os
-import winsound
-import time
-import wx
 import threading
+import time
+import traceback
+import winsound
+import wx
 
 import constants
+import daisyMaker
+import documentParser
 import views
+
 from errors import *
 from views import mkDialog
 from views import mkProgress
 from views import sapi5SettingsDialog
 from views import voicevoxSettingsDialog
-import daisyMaker
 
 
 class daisyOutputPanel:
@@ -70,6 +73,10 @@ class daisyOutputPanel:
         wx.CallAfter(progress.Destroy)
 
     def daisyOutputEvent(self, category, voice, input, output="output"):
+        parserIndex = self.parent.inputCategoryCombo.GetSelection()
+        if parserIndex < 0: #未選択
+            return 
+        parser = documentParser.getParsers()[parserIndex]
         try:
             if category == daisyMaker.SAPI:
                 voices = daisyMaker.getSapiVoices()
@@ -77,7 +84,7 @@ class daisyOutputPanel:
                 for v in voices:
                     if v["name"] == voice: pointer = v["pointer"]
                 if pointer == None: raise engineError("SAPI voice not found")
-                tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.SAPI, {
+                tBuild = daisyMaker.daisyMaker(input, output, parser, daisyMaker.SAPI, {
                     "voicePointer": pointer
                 })
             elif category == daisyMaker.VOICEVOX:
@@ -86,24 +93,24 @@ class daisyOutputPanel:
                 for v in voices:
                     if v["name"] == voice: id = v["id"]
                 if id == None: raise engineError("Voicevox voice not found")
-                tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.VOICEVOX, {
+                tBuild = daisyMaker.daisyMaker(input, output, parser, daisyMaker.VOICEVOX, {
                     "voiceID": id,
                     "kanaConvert": False, #self.parent.app.config["Voicevox"]["kanaConvert"]
                 })
             else:
                 return
         except connectionError as e:
-            self.parent.log.error(str(e))
+            self.parent.log.error(traceback.format_exc())
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声エンジンに接続できませんでした。"), ("OK",))
             return d.Show()
         except engineError as e:
-            self.parent.log.error(str(e))
+            self.parent.log.error(traceback.format_exc())
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"), ("OK",))
             return d.Show()
         except Exception as e:
-            self.parent.log.error(str(e))
+            self.parent.log.error(traceback.format_exc())
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声の呼び出し中にエラーが発生しました。"), ("OK",))
             return d.Show()
