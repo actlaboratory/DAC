@@ -6,11 +6,12 @@
 
 from email.policy import default
 import wx
+import traceback
 
 import constants
 import simpleDialog
 import views.ViewCreator
-import voiceMaker
+from voiceMaker import voicevox
 
 from enum import Enum,auto
 from views.baseDialog import *
@@ -36,14 +37,16 @@ class Dialog(BaseDialog):
 		super().Initialize(self.app.hMainView.hFrame,_("設定"))
 		self.hasError = False
 		try:
-			voices = ([ v["name"] for v in voiceMaker.voicevox.getVoiceSelections() ])
+			voices = ([ v["name"] for v in voicevox.voicevox.getVoiceSelections() ])
 		except connectionError as e:
+			self.log.error(traceback.format_exc())
 			d = mkDialog.Dialog("error dialog")
 			d.Initialize(_("エラー"), _("Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"), ("OK",))
 			d.Show()
 			self.hasError = True
 			return
 		except Exception as e:
+			self.log.error(traceback.format_exc())
 			d = mkDialog.Dialog("error dialog")
 			d.Initialize(_("エラー"), _("Voicevoxとの接続中にエラーが発生しました。"), ("OK",))
 			d.Show()
