@@ -13,6 +13,10 @@ Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 ・BSDライセンスに基づく以下のライブラリ
 	pyperclip	(https://pypi.org/project/pyperclip/)
 		Copyright (c) 2014, Al Sweigart
+　　python-markdown　(https://github.com/Python-Markdown/markdown)
+　　　　Copyright 2007, 2008 The Python Markdown Project (v. 1.7 and later)
+　　　　Copyright 2004, 2005, 2006 Yuri Takhteyev (v. 0.2-1.6b)
+　　　　Copyright 2004 Manfred Stienstra (the original version)
 
 ・MITライセンスに基づく以下のライブラリ
 	AccessibleOutput2　(https://pypi.org/project/accessible-output2/)
