@@ -12,7 +12,7 @@ from views import voicevoxSettingsDialog
 from .voiceMakerInterface import *
 
 class voicevox(voiceMakerInterface):
-	_PORT = 50031
+	_PORT = 50021
 	_CONFIG_SECTION = "voicevox"
 
 	@classmethod
@@ -78,7 +78,7 @@ class voicevox(voiceMakerInterface):
 
 	@classmethod
 	def getSettingDialog(cls):
-		return voicevoxSettingsDialog.Dialog(cls._CONFIG_SECTION)
+		return voicevoxSettingsDialog.Dialog(cls._CONFIG_SECTION, cls)
 
 	@classmethod
 	def validateSettings(cls):
