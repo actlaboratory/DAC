@@ -27,9 +27,10 @@ class configType(Enum):
 
 
 class Dialog(BaseDialog):
-	def __init__(self, configSectionName = "voicevox"):
+	def __init__(self, configSectionName, voiceCls):
 		self.voiceSelection = {}
 		self.configSectionName = configSectionName
+		self.voiceCls = voiceCls
 		super().__init__("settingsDialog")
 		self.iniDic = {}			#iniファイルと作ったオブジェクトの対応
 
@@ -38,25 +39,24 @@ class Dialog(BaseDialog):
 		super().Initialize(self.app.hMainView.hFrame,_("設定"))
 		self.hasError = False
 		try:
-			voice_list = voicevox.voicevox.getVoiceSelections()
+			voice_list = self.voiceCls.getVoiceSelections()
 		except connectionError as e:
 			self.log.error(traceback.format_exc())
 			d = mkDialog.Dialog("error dialog")
-			d.Initialize(_("エラー"), _("Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"), ("OK",))
+			d.Initialize(_("エラー"), _("%(name)sに接続できません。%(name)sが正しく起動しているか確認してください。" % {"name": self.voiceCls.getName()}), ("OK",))
 			d.Show()
 			self.hasError = True
 			return
 		except Exception as e:
 			self.log.error(traceback.format_exc())
 			d = mkDialog.Dialog("error dialog")
-			d.Initialize(_("エラー"), _("Voicevoxとの接続中にエラーが発生しました。"), ("OK",))
+			d.Initialize(_("エラー"), _("%(name)sとの接続中にエラーが発生しました。" % {"name": self.voiceCls.getName()}), ("OK",))
 			d.Show()
 			self.hasError = True
 			return
 		for v in voice_list:
 			self.voiceSelection[str(v["id"])] = v["name"]
 		self.InstallControls()
-		print(list(self.voiceSelection.keys())[0])
 		self.load()
 		return True
 
