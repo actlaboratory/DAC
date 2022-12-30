@@ -2,6 +2,7 @@
 
 from . import sapi
 from . import voicevox
+from . import coeiroink
 
 def getVoices():
-	return [sapi.sapi,voicevox.voicevox]
+	return [sapi.sapi,voicevox.voicevox, coeiroink.Coeiroink]

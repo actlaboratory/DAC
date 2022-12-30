@@ -5,17 +5,20 @@
 from abc import ABCMeta, abstractmethod, ABC
 
 class voiceMakerInterface(metaclass=ABCMeta):
-
+	@classmethod
 	@abstractmethod
-	def generateWave(text, fileName):
+	def generateWave(cls, text, fileName):
 		raise NotImplemented()
 
+	@classmethod
 	@abstractmethod
-	def getName():
+	def getName(cls):
 		raise NotImplemented()
 
-	def getSettingDialog():
+	@classmethod
+	def getSettingDialog(cls):
 		return None
 
-	def validateSettings():
+	@classmethod
+	def validateSettings(cls):
 		return True
