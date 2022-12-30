@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DAC\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-19 21:10+0900\n"
+"POT-Creation-Date: 2022-12-30 17:59+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 msgid "終了(&X)"
 msgstr ""
 
-#: menuItemsDic.py:14 views\main.py:94
+#: menuItemsDic.py:14 views\main.py:100
 msgid "オプション(&O)"
 msgstr ""
 
@@ -137,6 +137,22 @@ msgid ""
 "ソフトウェア終了時に、自動でアップデートされます。"
 msgstr ""
 
+#: documentParser\epub.py:147
+msgid "EPUBファイル"
+msgstr ""
+
+#: documentParser\epub.py:150
+msgid "EPUBファイル (.epub)"
+msgstr ""
+
+#: documentParser\markdown.py:78
+msgid "markdownファイル"
+msgstr ""
+
+#: documentParser\markdown.py:81
+msgid "markdownファイル (.md)"
+msgstr ""
+
 #: views\base.py:68
 msgid "現在メニューは操作できません"
 msgstr ""
@@ -149,64 +165,68 @@ msgid ""
 "\n"
 msgstr ""
 
-#: views\base.py:119 views\daisyOutputPanel.py:98 views\daisyOutputPanel.py:103
-#: views\daisyOutputPanel.py:108 views\daisyOutputPanel.py:138
+#: views\base.py:119 views\daisyOutputPanel.py:84 views\daisyOutputPanel.py:89
+#: views\daisyOutputPanel.py:103 views\daisyOutputPanel.py:108
+#: views\daisyOutputPanel.py:113 views\daisyOutputPanel.py:138
 #: views\daisyOutputPanel.py:155 views\fontManager.py:25
 #: views\fontManager.py:50 views\globalKeyConfig.py:61
 #: views\KeyValueSettingDialogBase.py:297
 #: views\KeyValueSettingDialogBase.py:348 views\updateDialog.py:66
-#: views\voicevoxSettingsDialog.py:42 views\voicevoxSettingsDialog.py:48
+#: views\voicevoxSettingsDialog.py:44 views\voicevoxSettingsDialog.py:51
 msgid "エラー"
 msgstr ""
 
-#: views\daisyOutputPanel.py:24
-msgid "Microsoft SAPI5"
-msgstr ""
-
-#: views\daisyOutputPanel.py:24
-msgid "Voicevox"
-msgstr ""
-
-#: views\daisyOutputPanel.py:32
+#: views\daisyOutputPanel.py:30
 msgid "出力先"
 msgstr ""
 
-#: views\daisyOutputPanel.py:34 views\main.py:54 views\settingsDialog.py:76
+#: views\daisyOutputPanel.py:32 views\main.py:60 views\settingsDialog.py:80
 msgid "参照"
 msgstr ""
 
-#: views\daisyOutputPanel.py:36
+#: views\daisyOutputPanel.py:34
 msgid "音声エンジン"
 msgstr ""
 
-#: views\daisyOutputPanel.py:38 views\globalKeyConfig.py:75
+#: views\daisyOutputPanel.py:35 views\globalKeyConfig.py:75
 #: views\sapi5SettingsDialog.py:34 views\settingsDialog.py:58
-#: views\voicevoxSettingsDialog.py:36
+#: views\voicevoxSettingsDialog.py:37
 msgid "設定"
 msgstr ""
 
-#: views\daisyOutputPanel.py:40
+#: views\daisyOutputPanel.py:37
 msgid "開始"
 msgstr ""
 
-#: views\daisyOutputPanel.py:98
-msgid "音声エンジンに接続できませんでした。"
+#: views\daisyOutputPanel.py:84
+msgid ""
+"音声エンジンの設定に問題があります。音声エンジンの設定をご確認ください。"
+msgstr ""
+
+#: views\daisyOutputPanel.py:89
+msgid ""
+"音声エンジンの初期化でエラーが発生しました。音声エンジンの設定をご確認くださ"
+"い。"
 msgstr ""
 
 #: views\daisyOutputPanel.py:103
+msgid "音声エンジンに接続できませんでした。"
+msgstr ""
+
+#: views\daisyOutputPanel.py:108
 msgid ""
 "音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:108
+#: views\daisyOutputPanel.py:113
 msgid "音声の呼び出し中にエラーが発生しました。"
 msgstr ""
 
-#: views\daisyOutputPanel.py:113
+#: views\daisyOutputPanel.py:118
 msgid "処理中"
 msgstr ""
 
-#: views\daisyOutputPanel.py:124 views\settingsDialog.py:148
+#: views\daisyOutputPanel.py:124 views\settingsDialog.py:152
 msgid "出力先フォルダの選択"
 msgstr ""
 
@@ -255,7 +275,7 @@ msgstr ""
 msgid "識別子"
 msgstr ""
 
-#: views\globalKeyConfig.py:31 views\main.py:121
+#: views\globalKeyConfig.py:31 views\main.py:127
 msgid "ショートカットキーの設定"
 msgstr ""
 
@@ -264,7 +284,7 @@ msgstr ""
 #: views\globalKeyConfig.py:120 views\globalKeyConfig.py:128
 #: views\globalKeyConfig.py:138 views\globalKeyConfig.py:143
 #: views\keyConfig.py:57 views\KeyValueSettingDialogBase.py:333
-#: views\main.py:153 views\main.py:166
+#: views\main.py:159 views\main.py:172
 msgid "なし"
 msgstr ""
 
@@ -353,9 +373,9 @@ msgid "ＯＫ"
 msgstr ""
 
 #: views\KeyValueSettingDialogBase.py:84 views\KeyValueSettingDialogBase.py:275
-#: views\mkDialog.py:31 views\sapi5SettingsDialog.py:53
-#: views\settingsDialog.py:95 views\SimpleInputDialog.py:39
-#: views\updateDialog.py:45 views\voicevoxSettingsDialog.py:74
+#: views\mkDialog.py:31 views\sapi5SettingsDialog.py:49
+#: views\settingsDialog.py:99 views\SimpleInputDialog.py:39
+#: views\updateDialog.py:45 views\voicevoxSettingsDialog.py:77
 msgid "キャンセル"
 msgstr ""
 
@@ -401,47 +421,39 @@ msgid ""
 "す。\n"
 msgstr ""
 
-#: views\main.py:28 views\main.py:105
-msgid "EPUBファイル"
-msgstr ""
-
 #: views\main.py:30
 msgid "音声DAISY図書 Ver2.02"
 msgstr ""
 
-#: views\main.py:50
+#: views\main.py:56
 msgid "変換元データの種類"
 msgstr ""
 
-#: views\main.py:52
+#: views\main.py:58
 msgid "変換元"
 msgstr ""
 
-#: views\main.py:56
+#: views\main.py:62
 msgid "出力データの種類"
 msgstr ""
 
-#: views\main.py:93
+#: views\main.py:99
 msgid "ファイル(&F))"
 msgstr ""
 
-#: views\main.py:95
+#: views\main.py:101
 msgid "ヘルプ(&H)"
 msgstr ""
 
-#: views\main.py:106
+#: views\main.py:114
 msgid "変換元ファイルの選択"
-msgstr ""
-
-#: views\main.py:106
-msgid "EPUBファイル (.epub)"
 msgstr ""
 
 #: views\mkProgress.py:25
 msgid "中止"
 msgstr ""
 
-#: views\sapi5SettingsDialog.py:48 views\voicevoxSettingsDialog.py:68
+#: views\sapi5SettingsDialog.py:44 views\voicevoxSettingsDialog.py:71
 msgid "声"
 msgstr ""
 
@@ -481,51 +493,51 @@ msgstr ""
 msgid "一般"
 msgstr ""
 
-#: views\settingsDialog.py:73
+#: views\settingsDialog.py:75
 msgid "ログ記録レベル(&L)"
 msgstr ""
 
-#: views\settingsDialog.py:74
+#: views\settingsDialog.py:76
 msgid "出力先(&O)"
 msgstr ""
 
-#: views\settingsDialog.py:75
+#: views\settingsDialog.py:77
 msgid "一時フォルダの場所"
 msgstr ""
 
-#: views\settingsDialog.py:79
+#: views\settingsDialog.py:83
 msgid "表示/言語"
 msgstr ""
 
-#: views\settingsDialog.py:80
+#: views\settingsDialog.py:84
 msgid "言語(&L)"
 msgstr ""
 
-#: views\settingsDialog.py:81
+#: views\settingsDialog.py:85
 msgid "画面表示モード(&D)"
 msgstr ""
 
-#: views\settingsDialog.py:82
+#: views\settingsDialog.py:86
 msgid "テキストの折り返し(&W)"
 msgstr ""
 
-#: views\settingsDialog.py:85
+#: views\settingsDialog.py:89
 msgid "ネットワーク"
 msgstr ""
 
-#: views\settingsDialog.py:86
+#: views\settingsDialog.py:90
 msgid "起動時に更新を確認(&U)"
 msgstr ""
 
-#: views\settingsDialog.py:87
+#: views\settingsDialog.py:91
 msgid "プロキシサーバーの情報を手動で設定する(&M)"
 msgstr ""
 
-#: views\settingsDialog.py:88
+#: views\settingsDialog.py:92
 msgid "サーバーURL"
 msgstr ""
 
-#: views\settingsDialog.py:90
+#: views\settingsDialog.py:94
 msgid "ポート番号"
 msgstr ""
 
@@ -598,15 +610,23 @@ msgstr ""
 msgid "閉じる"
 msgstr ""
 
-#: views\voicevoxSettingsDialog.py:42
+#: views\voicevoxSettingsDialog.py:44
 msgid ""
 "Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"
 msgstr ""
 
-#: views\voicevoxSettingsDialog.py:48
+#: views\voicevoxSettingsDialog.py:51
 msgid "Voicevoxとの接続中にエラーが発生しました。"
 msgstr ""
 
 #: views\web.py:28
 msgid "googleアカウント認証"
+msgstr ""
+
+#: voiceMaker\sapi.py:43
+msgid "Microsoft SAPI5"
+msgstr ""
+
+#: voiceMaker\voicevox.py:70
+msgid "Voicevox"
 msgstr ""
