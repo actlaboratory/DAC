@@ -27,8 +27,9 @@ class configType(Enum):
 
 
 class Dialog(BaseDialog):
-	def __init__(self):
+	def __init__(self, configSectionName = "voicevox"):
 		self.voiceSelection = {}
+		self.configSectionName = configSectionName
 		super().__init__("settingsDialog")
 		self.iniDic = {}			#iniファイルと作ったオブジェクトの対応
 
@@ -77,8 +78,8 @@ class Dialog(BaseDialog):
 		self.cancelBtn = creator.cancelbutton(_("キャンセル"), proportion=1)
 
 	def load(self):
-		self._setValue(self.voice, "Voicevox","voice", configType.DIC, self.voiceSelection, list(self.voiceSelection.keys())[0])
-		#self._setValue(self.kana, "Voicevox", "kanaConvert", configType.BOOL, False)
+		self._setValue(self.voice, self.configSectionName,"voice", configType.DIC, self.voiceSelection, list(self.voiceSelection.keys())[0])
+		#self._setValue(self.kana, self.configSectionName, "kanaConvert", configType.BOOL, False)
 
 
 	def onOkButton(self, event):
