@@ -9,7 +9,6 @@ import traceback
 import constants
 import daisyBuilder
 import utils
-import voiceMaker
 
 from comtypes import CoInitialize
 from pydub import AudioSegment
@@ -18,34 +17,13 @@ from logging import getLogger
 from errors import inputError, outputError
 
 
-# const
-SAPI = 0
-VOICEVOX = 1
-
-def getSapiVoices():
-    result = voiceMaker.getSapiVoices()
-    if result:
-        return [ {"name": r.GetDescription(), "pointer": r} for r in result ]
-    else:
-        return []
-
-def getVoicevoxVoices():
-    result = voiceMaker.getVoicevoxVoices()
-    voices = []
-    for v in result:
-        for s in v["styles"]:
-            voices.append({"name": "%s(%s)" %(v["name"], s["name"]), "id": s["id"]})
-    return voices
-
-
 class daisyMaker(threading.Thread):
-    def __init__(self, inputFile, outputDir, parser, mode=SAPI, options={}):
+    def __init__(self, inputFile, outputDir, parser, voice):
         threading.Thread.__init__(self)
         self.inputFile = inputFile
         self.outputDir = outputDir
         self.parser = parser
-        self.mode = mode
-        self.options = options
+        self.voice = voice
         self.total = 0
         self.count = 0
         self.finished = False
@@ -69,10 +47,10 @@ class daisyMaker(threading.Thread):
             self.error = inputError(str(e))
             return
         outputDir = utils.addDirNameSuffix(os.path.join(self.outputDir, utils.makeFileName(meta["title"], "_")))
-        
+
         for i in index:
             self.total += len(i["texts"])
-        
+
         _counter = 1
         _outputCounter = 1
         try:
@@ -94,9 +72,7 @@ class daisyMaker(threading.Thread):
                 if self.canceled: return
                 fileName = os.path.join(utils.getTempDir(), "%08d.wav" %(_counter,))
                 try:
-                    if self.mode == SAPI: result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
-                    elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"], self.options["kanaConvert"])
-                    else: return
+                    result = self.voice.generateWave(t, fileName)
                 except Exception as e:
                     self.log.error(traceback.format_exc())
                     self.error = e
