@@ -37,7 +37,7 @@ class Dialog(BaseDialog):
 		super().Initialize(self.app.hMainView.hFrame,_("設定"))
 		self.hasError = False
 		try:
-			voices = ([ v["name"] for v in voicevox.voicevox.getVoiceSelections() ])
+			voice_list = voicevox.voicevox.getVoiceSelections()
 		except connectionError as e:
 			self.log.error(traceback.format_exc())
 			d = mkDialog.Dialog("error dialog")
@@ -52,10 +52,10 @@ class Dialog(BaseDialog):
 			d.Show()
 			self.hasError = True
 			return
-		voices.sort()
-		for v in voices:
-			self.voiceSelection[v] = v
+		for v in voice_list:
+			self.voiceSelection[str(v["id"])] = v["name"]
 		self.InstallControls()
+		print(list(self.voiceSelection.keys())[0])
 		self.load()
 		return True
 

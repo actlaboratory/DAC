@@ -12,6 +12,7 @@ from views import voicevoxSettingsDialog
 from .voiceMakerInterface import *
 
 class voicevox(voiceMakerInterface):
+	_PORT = 50021
 	def generateWave(text, fileName):
 		# カナ処理
 		#cnv = EnglishToKanaConverter(False)
@@ -23,7 +24,7 @@ class voicevox(voiceMakerInterface):
 		# audio_query
 		query_payload = {"text": text, "speaker": voicevox.getSpeakerId()}
 		for query_i in range(globalVars.app.config.getint("Voicevox", "max_retry", 10)):
-			r = requests.post("http://localhost:50021/audio_query", 
+			r = requests.post(f"http://localhost:{ voicevox._PORT }/audio_query", 
 				params=query_payload, timeout=(10.0, 3000.0))
 			if r.status_code == 200:
 				query_data = r.json()
@@ -35,19 +36,19 @@ class voicevox(voiceMakerInterface):
 		# synthesis
 		synth_payload = {"speaker": voicevox.getSpeakerId()}
 		for synth_i in range(globalVars.app.config.getint("Voicevox", "max_retry", 10)):
-			r = requests.post("http://localhost:50021/synthesis", params=synth_payload, 
+			r = requests.post(f"http://localhost:{ voicevox._PORT }/synthesis", params=synth_payload, 
 				data=json.dumps(query_data), timeout=(1000.0, 30000.0))
 			if r.status_code == 200:
-				with open(filename, "wb") as fp:
+				with open(fileName, "wb") as fp:
 					fp.write(r.content)
-				print(f"{filename} は query={query_i+1}回, synthesis={synth_i+1}回のリトライで正常に保存されました")
+				print(f"{fileName} は query={query_i+1}回, synthesis={synth_i+1}回のリトライで正常に保存されました")
 				return True
 			time.sleep(1)
 		else:
 			raise engineError("voicevox speak failed.")
 
 	def getVoicevoxVoices():
-		try: r = requests.get("http://localhost:50021/speakers", timeout=(10.0, 30.0))
+		try: r = requests.get(f"http://localhost:{ voicevox._PORT }/speakers", timeout=(10.0, 30.0))
 		except Exception as e: raise connectionError("get voicevox speakers failed. " + str(e))
 		if r.status_code == 200:
 			return r.json()
@@ -63,7 +64,7 @@ class voicevox(voiceMakerInterface):
 		return voices
 
 	def getSpeakerId():
-		globalVars.app.config.getint("Voicevox", "voice", 0)
+		return globalVars.app.config.getint("Voicevox", "voice", 0)
 
 	def getName():
 		return _("Voicevox")
@@ -74,7 +75,7 @@ class voicevox(voiceMakerInterface):
 	def validateSettings():
 		voices = voicevox.getVoiceSelections()
 		for v in voices:
-			if v["id"] == globalVars.app.config["Voicevox"]["voice"]:
+			if v["id"] == voicevox.getSpeakerId():
 				return True
 		return False
 
