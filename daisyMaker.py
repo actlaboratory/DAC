@@ -3,49 +3,35 @@
 import os
 import shutil
 import threading
-from comtypes import CoInitialize
 import time
-from pydub import AudioSegment
-import documentParser
-from errors import inputError, outputError
-import utils
-import voiceMaker
+import traceback
+
+import constants
 import daisyBuilder
+import utils
 
-# const
-SAPI = 0
-VOICEVOX = 1
+from comtypes import CoInitialize
+from pydub import AudioSegment
+from logging import getLogger
 
-def getSapiVoices():
-    result = voiceMaker.getSapiVoices()
-    if result:
-        return [ {"name": r.GetDescription(), "pointer": r} for r in result ]
-    else:
-        return []
-
-def getVoicevoxVoices():
-    result = voiceMaker.getVoicevoxVoices()
-    voices = []
-    for v in result:
-        for s in v["styles"]:
-            voices.append({"name": "%s(%s)" %(v["name"], s["name"]), "id": s["id"]})
-    return voices
+from errors import inputError, outputError
 
 
 class daisyMaker(threading.Thread):
-    def __init__(self, inputFile, outputDir, mode=SAPI, options={}):
+    def __init__(self, inputFile, outputDir, parser, voice):
         threading.Thread.__init__(self)
         self.inputFile = inputFile
         self.outputDir = outputDir
-        self.mode = mode
-        self.options = options
+        self.parser = parser
+        self.voice = voice
         self.total = 0
         self.count = 0
         self.finished = False
         self.exited = False
         self.canceled = False
         self.error = None
-    
+        self.log=getLogger("%s.%s" % (constants.LOG_PREFIX, "daisyMaker"))
+
     def cancel(self):
         self.canceled = True
         self.exited = True
@@ -55,22 +41,23 @@ class daisyMaker(threading.Thread):
     
     def run(self):
         CoInitialize()
-        try: files, index, meta = documentParser.parseEpub(self.inputFile, phrase=True)
+        try: index, meta = self.parser.parse(self.inputFile, phrase=True)
         except Exception as e:
+            self.log.error(traceback.format_exc())
             self.error = inputError(str(e))
             return
-
         outputDir = utils.addDirNameSuffix(os.path.join(self.outputDir, utils.makeFileName(meta["title"], "_")))
-        
+
         for i in index:
             self.total += len(i["texts"])
-        
+
         _counter = 1
         _outputCounter = 1
         try:
             os.makedirs(outputDir)
             os.makedirs(utils.getTempDir(), exist_ok=True)
         except Exception as e:
+            self.log.error(traceback.format_exc())
             self.error = outputError(str(e))
             return
         for i in index:
@@ -85,10 +72,9 @@ class daisyMaker(threading.Thread):
                 if self.canceled: return
                 fileName = os.path.join(utils.getTempDir(), "%08d.wav" %(_counter,))
                 try:
-                    if self.mode == SAPI: result = voiceMaker.outputSapiSpeech(t, fileName, self.options)
-                    elif self.mode == VOICEVOX: result = voiceMaker.outputVoicevoxSpeech(t, fileName, self.options["voiceID"], self.options["kanaConvert"])
-                    else: return
+                    result = self.voice.generateWave(t, fileName)
                 except Exception as e:
+                    self.log.error(traceback.format_exc())
                     self.error = e
                     return
                 audioTmps.append(fileName)
@@ -100,6 +86,7 @@ class daisyMaker(threading.Thread):
                 try:
                     audioTmp = (AudioSegment.from_file(f, "wav")) + (AudioSegment.silent(duration=500))
                 except Exception as e:
+                    self.log.error(traceback.format_exc())
                     self.error = outputError(str(e))
                     return
                 if audioOutput == None:
@@ -114,6 +101,7 @@ class daisyMaker(threading.Thread):
                 outputFile = os.path.join(outputDir, "audio%08d.mp3" %(_outputCounter,))
                 try: audioOutput.export(outputFile, format="mp3")
                 except Exception as e:
+                    self.log.error(traceback.format_exc())
                     self.error = outputError(str(e))
                     return
                 i["audioFile"] = outputFile
@@ -124,6 +112,7 @@ class daisyMaker(threading.Thread):
             shutil.rmtree(utils.getTempDir())
             os.makedirs(utils.getTempDir())
         except Exception as e:
+            self.log.error(traceback.format_exc())
             self.error = outputError(str(e))
             return
         

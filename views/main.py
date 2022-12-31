@@ -8,6 +8,7 @@ import time, threading
 import wx
 
 import constants
+import documentParser
 import globalVars
 import update
 import menuItemsStore
@@ -25,7 +26,6 @@ class MainView(BaseView):
 	def __init__(self):
 		# support file categories
 		self.INPUT_FILE_CATEGORY_DEFAULT = 0
-		self.INPUT_FILE_CATEGORIES = [_("EPUBファイル")]
 		self.OUTPUT_FILE_CATEGORY_DEFAULT = 0
 		self.OUTPUT_FILE_CATEGORIES = [_("音声DAISY図書 Ver2.02"),]
 		self.outputPanels = [daisyOutputPanel.daisyOutputPanel(self)]
@@ -44,17 +44,23 @@ class MainView(BaseView):
 		self.InstallMenuEvent(Menu(self.identifier),self.events.OnMenuSelect)
 		self.InstallControls()
 
+	def getInputFileCategories(self):
+		result = []
+		for i in documentParser.getParsers():
+			result.append(i.getDocumentTypeName())
+		return result
+
 	def InstallControls(self):
-		verticalCreator = views.ViewCreator.ViewCreator(self.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.VERTICAL, style=wx.ALL | wx.EXPAND, space=10)
+		verticalCreator = views.ViewCreator.ViewCreator(self.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.VERTICAL, style=wx.TOP | wx.LEFT | wx.RIGHT | wx.EXPAND, space=10)
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-		self.inputCategoryCombo, tmp = horizontalCreator.combobox(_("変換元データの種類"), state=self.INPUT_FILE_CATEGORY_DEFAULT, selection=self.INPUT_FILE_CATEGORIES)
+		self.inputCategoryCombo, tmp = horizontalCreator.combobox(_("変換元データの種類"), state=self.INPUT_FILE_CATEGORY_DEFAULT, selection=self.getInputFileCategories())
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.inputPathInput, tmp = horizontalCreator.inputbox(_("変換元"), style=0, proportion=1, sizerFlag=wx.ALIGN_CENTER_VERTICAL)
 		self.inputPathInput.hideScrollBar(wx.HORIZONTAL)
 		self.inputBrowseButton = horizontalCreator.button(_("参照"), self.events.inputBrowse)
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.outputCategoryCombo, tmp = horizontalCreator.combobox(_("出力データの種類"), state=self.OUTPUT_FILE_CATEGORY_DEFAULT, selection=self.OUTPUT_FILE_CATEGORIES)
-		self.outputCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.VERTICAL, style=wx.ALL | wx.EXPAND, space=10)
+		self.outputCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.VERTICAL, style=wx.EXPAND, space=0)
 		self.outputPanels[0].setCreator(self.outputCreator)
 		self.outputPanels[0].create()
 
@@ -100,12 +106,12 @@ class Events(BaseEvents):
 		self.parent.hFrame.Close()
 
 	def inputBrowse(self, evt):
-		category = self.parent.inputCategoryCombo.GetValue()
-		d = None
-		if category == _("EPUBファイル"):
-			d = wx.FileDialog(None, _("変換元ファイルの選択"), wildcard=_("EPUBファイル (.epub)") + "|*.epub")
-		else:
+		selected = self.parent.inputCategoryCombo.GetSelection()
+		if selected < 0: #未選択
 			return
+		print(documentParser.getParsers())
+		print(selected)
+		d = wx.FileDialog(None, _("変換元ファイルの選択"), wildcard=documentParser.getParsers()[selected].getWildCardString())
 		r = d.ShowModal()
 		if r == wx.ID_CANCEL: return
 		path = d.GetPath()

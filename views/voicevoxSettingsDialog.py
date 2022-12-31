@@ -6,14 +6,15 @@
 
 from email.policy import default
 import wx
+import traceback
 
 import constants
 import simpleDialog
 import views.ViewCreator
+from voiceMaker import voicevox
 
 from enum import Enum,auto
 from views.baseDialog import *
-import daisyMaker
 from errors import *
 from views import mkDialog
 
@@ -26,8 +27,10 @@ class configType(Enum):
 
 
 class Dialog(BaseDialog):
-	def __init__(self):
+	def __init__(self, configSectionName, voiceCls):
 		self.voiceSelection = {}
+		self.configSectionName = configSectionName
+		self.voiceCls = voiceCls
 		super().__init__("settingsDialog")
 		self.iniDic = {}			#iniファイルと作ったオブジェクトの対応
 
@@ -36,22 +39,23 @@ class Dialog(BaseDialog):
 		super().Initialize(self.app.hMainView.hFrame,_("設定"))
 		self.hasError = False
 		try:
-			voices = ([ v["name"] for v in daisyMaker.getVoicevoxVoices() ])
+			voice_list = self.voiceCls.getVoiceSelections()
 		except connectionError as e:
+			self.log.error(traceback.format_exc())
 			d = mkDialog.Dialog("error dialog")
-			d.Initialize(_("エラー"), _("Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"), ("OK",))
+			d.Initialize(_("エラー"), _("%(name)sに接続できません。%(name)sが正しく起動しているか確認してください。" % {"name": self.voiceCls.getName()}), ("OK",))
 			d.Show()
 			self.hasError = True
 			return
 		except Exception as e:
+			self.log.error(traceback.format_exc())
 			d = mkDialog.Dialog("error dialog")
-			d.Initialize(_("エラー"), _("Voicevoxとの接続中にエラーが発生しました。"), ("OK",))
+			d.Initialize(_("エラー"), _("%(name)sとの接続中にエラーが発生しました。" % {"name": self.voiceCls.getName()}), ("OK",))
 			d.Show()
 			self.hasError = True
 			return
-		voices.sort()
-		for v in voices:
-			self.voiceSelection[v] = v
+		for v in voice_list:
+			self.voiceSelection[str(v["id"])] = v["name"]
 		self.InstallControls()
 		self.load()
 		return True
@@ -74,8 +78,8 @@ class Dialog(BaseDialog):
 		self.cancelBtn = creator.cancelbutton(_("キャンセル"), proportion=1)
 
 	def load(self):
-		self._setValue(self.voice, "Voicevox","voice", configType.DIC, self.voiceSelection, list(self.voiceSelection.keys())[0])
-		#self._setValue(self.kana, "Voicevox", "kanaConvert", configType.BOOL, False)
+		self._setValue(self.voice, self.configSectionName,"voice", configType.DIC, self.voiceSelection, list(self.voiceSelection.keys())[0])
+		#self._setValue(self.kana, self.configSectionName, "kanaConvert", configType.BOOL, False)
 
 
 	def onOkButton(self, event):
@@ -113,5 +117,3 @@ class Dialog(BaseDialog):
 				conf[v[1]][v[2]] = list(v[3].keys())[obj.GetSelection()]
 			else:
 				conf[v[1]][v[2]] = obj.GetValue()
-		self.app.InitSpeech()
-		self.app.setProxyEnviron()

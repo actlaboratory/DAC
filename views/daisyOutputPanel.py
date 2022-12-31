@@ -1,28 +1,26 @@
 # Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
 
 import os
-import winsound
-import time
-import wx
 import threading
+import time
+import traceback
+import winsound
+import wx
 
 import constants
+import daisyMaker
+import documentParser
 import views
+import voiceMaker
+
 from errors import *
 from views import mkDialog
 from views import mkProgress
-from views import sapi5SettingsDialog
-from views import voicevoxSettingsDialog
-import daisyMaker
-
 
 class daisyOutputPanel:
     def __init__(self, parent):
         self.parent = parent
         self.created = False
-        # SAPI settings
-        self.sapiSelection = [_("Microsoft SAPI5"), _("Voicevox")]
-        self.sapiSelected = 0
 
     def setCreator(self, creator):
         self.creator = creator
@@ -33,13 +31,17 @@ class daisyOutputPanel:
         self.dirInput.hideScrollBar(wx.HORIZONTAL)
         browseButton = horizontalCreator.button(_("参照"), self._onBrowseButton)
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
-        sapiCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), self.sapiSelection, None, self.sapiSelected)
-        sapiCombo.Bind(wx.EVT_COMBOBOX, self._onSapiSelected)
+        self.voiceCombo, tmp = horizontalCreator.combobox(_("音声エンジン"), self.getVoiceSelections(), None, 0)
         configButton = horizontalCreator.button(_("設定"), self._onConfigButton)
         horizontalCreator = views.ViewCreator.ViewCreator(self.parent.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.ALIGN_RIGHT, space=10)
         controlButton = horizontalCreator.button(_("開始"), self._onStartButton)
         self.created = True
 
+    def getVoiceSelections(self):
+        result = []
+        for i in voiceMaker.getVoices():
+            result.append(i.getName())
+        return result
 
     def clear(self):
         if self.created:
@@ -69,41 +71,44 @@ class daisyOutputPanel:
                 tBuild.cancel()
         wx.CallAfter(progress.Destroy)
 
-    def daisyOutputEvent(self, category, voice, input, output="output"):
+    def daisyOutputEvent(self):
+        parserIndex = self.parent.inputCategoryCombo.GetSelection()
+        voiceIndex = self.voiceCombo.GetSelection()
+        if parserIndex < 0 or voiceIndex < 0: #未選択
+            return
+        parser = documentParser.getParsers()[parserIndex]
+        voice = voiceMaker.getVoices()[voiceIndex]
         try:
-            if category == daisyMaker.SAPI:
-                voices = daisyMaker.getSapiVoices()
-                pointer = None
-                for v in voices:
-                    if v["name"] == voice: pointer = v["pointer"]
-                if pointer == None: raise engineError("SAPI voice not found")
-                tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.SAPI, {
-                    "voicePointer": pointer
-                })
-            elif category == daisyMaker.VOICEVOX:
-                voices = daisyMaker.getVoicevoxVoices()
-                id = None
-                for v in voices:
-                    if v["name"] == voice: id = v["id"]
-                if id == None: raise engineError("Voicevox voice not found")
-                tBuild = daisyMaker.daisyMaker(input, output, daisyMaker.VOICEVOX, {
-                    "voiceID": id,
-                    "kanaConvert": False, #self.parent.app.config["Voicevox"]["kanaConvert"]
-                })
-            else:
+            if not voice.validateSettings():
+                d = mkDialog.Dialog("error dialog")
+                d.Initialize(_("エラー"), _("音声エンジンの設定に問題があります。音声エンジンの設定をご確認ください。"), ("OK",))
+                d.Show()
                 return
+        except (engineError, connectionError):
+            d = mkDialog.Dialog("error dialog")
+            d.Initialize(_("エラー"), _("音声エンジンの初期化でエラーが発生しました。音声エンジンの設定をご確認ください。"), ("OK",))
+            d.Show()
+            return
+
+        inputPath = self.parent.inputPathInput.GetValue()
+        outputDir = self.dirInput.GetValue()
+        if not outputDir:
+            outputDir = "output"
+
+        try:
+            tBuild = daisyMaker.daisyMaker(inputPath, outputDir, parser, voice)
         except connectionError as e:
-            self.parent.log.error(str(e))
+            self.parent.log.error(traceback.format_exc())
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声エンジンに接続できませんでした。"), ("OK",))
             return d.Show()
         except engineError as e:
-            self.parent.log.error(str(e))
+            self.parent.log.error(traceback.format_exc())
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声の呼び出しに失敗しました。DACから音声エンジンの設定を行ってください。"), ("OK",))
             return d.Show()
         except Exception as e:
-            self.parent.log.error(str(e))
+            self.parent.log.error(traceback.format_exc())
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), _("音声の呼び出し中にエラーが発生しました。"), ("OK",))
             return d.Show()
@@ -114,11 +119,6 @@ class daisyOutputPanel:
         t = threading.Thread(target=self.updateConvertProgressThread, args=(progress, tBuild))
         t.start()
         progress.Show()
-
-
-    def _onSapiSelected(self, evt):
-        selected = evt.GetSelection()
-        self.sapiSelected = selected
 
     def _onBrowseButton(self, evt):
         d = wx.DirDialog(None, _("出力先フォルダの選択"), style=wx.FD_SAVE)
@@ -137,18 +137,18 @@ class daisyOutputPanel:
             d = mkDialog.Dialog("error dialog")
             d.Initialize(_("エラー"), "\n".join(message), ("OK",))
             return d.Show()
-        if self.sapiSelected == 0: self.daisyOutputEvent(daisyMaker.SAPI, self.parent.app.config["SAPI5"]["voice"], self.parent.inputPathInput.GetValue(), self.dirInput.GetValue())
-        elif self.sapiSelected == 1: self.daisyOutputEvent(daisyMaker.VOICEVOX, self.parent.app.config["Voicevox"]["voice"], self.parent.inputPathInput.GetValue(), self.dirInput.GetValue())
+        self.daisyOutputEvent()
 
     def _onConfigButton(self, evt):
-        if self.sapiSelected == 0:
-            d = sapi5SettingsDialog.Dialog()
-            d.Initialize()
-            d.Show()
-        elif self.sapiSelected == 1:
-            d = voicevoxSettingsDialog.Dialog()
-            d.Initialize()
-            d.Show()
+        voiceIndex = self.voiceCombo.GetSelection()
+        if voiceIndex < 0: #未選択
+            return
+        voice = voiceMaker.getVoices()[voiceIndex]
+        d = voice.getSettingDialog()
+        if not d:
+            return
+        d.Initialize()
+        d.Show()
 
     def errorDialog(self, tBuild):
         d = mkDialog.Dialog("error dialog")
@@ -164,4 +164,3 @@ class daisyOutputPanel:
         r = d.Show()
         tBuild.exit()
         self.parent.log.debug("convert success.")
-
