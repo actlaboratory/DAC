@@ -51,7 +51,7 @@ class MainView(BaseView):
 		return result
 
 	def InstallControls(self):
-		verticalCreator = views.ViewCreator.ViewCreator(self.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.VERTICAL, style=wx.ALL | wx.EXPAND, space=10)
+		verticalCreator = views.ViewCreator.ViewCreator(self.viewMode, self.creator.GetPanel(), self.creator.GetSizer(), wx.VERTICAL, style=wx.TOP | wx.LEFT | wx.RIGHT | wx.EXPAND, space=10)
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.inputCategoryCombo, tmp = horizontalCreator.combobox(_("変換元データの種類"), state=self.INPUT_FILE_CATEGORY_DEFAULT, selection=self.getInputFileCategories())
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
@@ -60,7 +60,7 @@ class MainView(BaseView):
 		self.inputBrowseButton = horizontalCreator.button(_("参照"), self.events.inputBrowse)
 		horizontalCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.HORIZONTAL, style=wx.ALL | wx.EXPAND, space=10)
 		self.outputCategoryCombo, tmp = horizontalCreator.combobox(_("出力データの種類"), state=self.OUTPUT_FILE_CATEGORY_DEFAULT, selection=self.OUTPUT_FILE_CATEGORIES)
-		self.outputCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.VERTICAL, style=wx.ALL | wx.EXPAND, space=10)
+		self.outputCreator = views.ViewCreator.ViewCreator(self.viewMode, verticalCreator.GetPanel(), verticalCreator.GetSizer(), wx.VERTICAL, style=wx.EXPAND, space=0)
 		self.outputPanels[0].setCreator(self.outputCreator)
 		self.outputPanels[0].create()
 
