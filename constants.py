@@ -8,7 +8,7 @@ import wx
 APP_FULL_NAME = "Document to Audio Converter"#アプリケーションの完全な名前
 APP_NAME="DAC"#アプリケーションの名前
 APP_ICON = None
-APP_VERSION="1.1.0"
+APP_VERSION="2212.31.0"
 APP_LAST_RELEASE_DATE="2022-12-31"
 APP_COPYRIGHT_YEAR="2022"
 APP_LICENSE="GNU AFFERO GENERAL PUBLIC LICENSE Version3"
@@ -37,7 +37,7 @@ HALF_CHECKED=wx.CHK_UNDETERMINED
 FULL_CHECKED=wx.CHK_CHECKED
 
 #build関連定数
-BASE_PACKAGE_URL = None
+BASE_PACKAGE_URL = "https://github.com/actlaboratory/DAC/releases/download/1.0.0/DAC-1.0.0.zip"
 PACKAGE_CONTAIN_ITEMS = ("ffmpeg.exe", "success.wav")#パッケージに含めたいファイルやfolderがあれば指定
 NEED_HOOKS = ()#pyinstallerのhookを追加したい場合は指定
 STARTUP_FILE = "DAC.py"#起動用ファイルを指定
