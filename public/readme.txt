@@ -1,7 +1,7 @@
 		Document to Audio Converter -DAC-
 
-	バージョン:　　ver.1.0.0
-	リリース:　　　2022-09-19
+	バージョン:　　ver.1.1.0
+	リリース:　　　2022-12-31
 	開発・配布元:　ACT Laboratory　(https://actlab.org/)
 	主要開発者:　　藤井弘毅
 　　ソフト種別:　　オープンソースソフトウェア　(GitHubリポジトリ:https://github.com/actlaboratory/DAC/)
@@ -10,8 +10,8 @@
 第１章　はじめに
 １．１　Document to Audio Converter(DAC)の概要
 Document to Audio Converter(DAC)は、書類や電子書籍をオーディオブックに変換するソフトウェアです。
-現在、EPUBファイルから音声DAISY2.02への変換が可能です。
-音声は、SAPI5とVoicevoxに対応し、さまざまな声色でオーディオブックを作成することができます。
+現在、EPUBファイルとマークダウンファイルから音声DAISY2.02への変換が可能です。
+音声は、SAPI5、Voicevox、COEIROINKに対応し、さまざまな声色でオーディオブックを作成することができます。
 
 １．２　動作環境について
 64ビット版Windows11で動作確認を行っています。
@@ -144,6 +144,12 @@ An error has occurred. Contact to the developer for further assistance.
 Voicevoxを用いて変換するときは、以下のサイトよりVoicevox本体をダウンロードしてください。
 音声エンジンの設定中や変換処理中は、常にVoicevoxが起動している必要があります。
 https://voicevox.hiroshiba.jp/
+変換処理には、かなりの時間がかかります。また、話し方の詳細な調整をすることはできません。
+
+５．２．2　COEIROINKについて
+COEIROINKを用いて変換するときは、以下のサイトよりCOEIROINK本体をダウンロードしてください。
+音声エンジンの設定中や変換処理中は、常にCOEIROINKが起動している必要があります。
+https://coeiroink.com/
 変換処理には、かなりの時間がかかります。また、話し方の詳細な調整をすることはできません。
 
 5．3　連絡先

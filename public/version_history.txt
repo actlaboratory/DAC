@@ -1,4 +1,8 @@
 DAC Version History
 
+Version 1.1.0 2022/12/31
+　入力形式に、マークダウンファイルを追加
+　出力音声エンジンに、COEIROINKを追加
+
 Version 1.0.0 2022/09/19
 　初回リリース
