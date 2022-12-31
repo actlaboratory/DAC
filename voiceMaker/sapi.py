@@ -49,7 +49,7 @@ class sapi(voiceMakerInterface):
 
     @classmethod
     def getSettingDialog(cls):
-        return sapi5SettingsDialog.Dialog(sapi.getSapiVoiceNames())
+        return sapi5SettingsDialog.Dialog(cls.getSapiVoiceNames())
 
     @classmethod
     def validateSettings(cls):
