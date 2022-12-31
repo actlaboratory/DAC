@@ -25,12 +25,17 @@ class markdown(documentParserInterface):
 
 	def parse(source, phrase=True):
 		try: 
-			with open(source,"r") as f:
+			with open(source,"r", encoding="utf8") as f:
 				document = md.markdown(f.read())
+		except UnicodeDecodeError:
+			try:
+				with open(source,"r", encoding="cp932") as f:
+					document = md.markdown(f.read())
+			except Exception as e: raise inputError(str(e))
 		except Exception as e: raise inputError(str(e))
 
 		try:
-			dummy, indexes = markdown.parseHtml(BeautifulSoup("<body>"+document+"</body>", "lxml-xml").find("body"))
+			dummy, indexes = markdown.parseHtml(BeautifulSoup("<body>"+document+"</body>", "lxml-xml").find("body"), None, [])
 		except Exception as e:
 			raise inputError(str(e))
 
