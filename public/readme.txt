@@ -1,7 +1,7 @@
 		Document to Audio Converter -DAC-
 
-	バージョン:　　ver.1.1.0
-	リリース:　　　2022-12-31
+	バージョン:　　ver.1.1.1
+	リリース:　　　2023-01-01
 	開発・配布元:　ACT Laboratory　(https://actlab.org/)
 	主要開発者:　　藤井弘毅
 　　ソフト種別:　　オープンソースソフトウェア　(GitHubリポジトリ:https://github.com/actlaboratory/DAC/)
