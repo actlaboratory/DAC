@@ -13,4 +13,8 @@ class documentParserInterface(metaclass=ABCMeta):
 	@abstractmethod
 	def getWildCardString():
 		raise NotImplemented()
+	
+	@abstractmethod
+	def isDirectory():
+		raise NotImplemented()
 
