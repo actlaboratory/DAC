@@ -111,7 +111,10 @@ class Events(BaseEvents):
 			return
 		print(documentParser.getParsers())
 		print(selected)
-		d = wx.FileDialog(None, _("変換元ファイルの選択"), wildcard=documentParser.getParsers()[selected].getWildCardString())
+		if documentParser.getParsers()[selected].isDirectory():
+			d = wx.DirDialog(None, _("変換元フォルダの選択"))
+		else:
+			d = wx.FileDialog(None, _("変換元ファイルの選択"), wildcard=documentParser.getParsers()[selected].getWildCardString())
 		r = d.ShowModal()
 		if r == wx.ID_CANCEL: return
 		path = d.GetPath()
