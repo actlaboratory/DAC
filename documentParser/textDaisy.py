@@ -148,7 +148,10 @@ class textDaisy(documentParserInterface):
         return _("EPUBファイル")
 
     def getWildCardString():
-        return _("EPUBファイル (.epub)") + "|*.epub"
+        return None
+
+    def isDirectory():
+        return True
 
 if __name__ == '__main__':
     i, m = textDaisy.parse("input") 
