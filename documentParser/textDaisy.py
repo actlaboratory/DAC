@@ -145,7 +145,7 @@ class textDaisy(documentParserInterface):
 
 
     def getDocumentTypeName():
-        return _("EPUBファイル")
+        return _("テキストデイジー図書")
 
     def getWildCardString():
         return None
