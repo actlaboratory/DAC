@@ -56,6 +56,7 @@ class textDaisy(documentParserInterface):
         ret = []
         for s in split:
             if s.strip() != "":
+                s = re.sub(r'[、。,\.]$', "", s.strip())
                 ret.append(s + ".")
         return ret
 
