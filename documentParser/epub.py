@@ -11,7 +11,7 @@ import sys
 from bs4 import BeautifulSoup
 from ebooklib import epub
 
-from .documentParserInterface import *
+from documentParser.documentParserInterface import *
 from errors import *
 
 class epub(documentParserInterface):
@@ -148,6 +148,9 @@ class epub(documentParserInterface):
 
     def getWildCardString():
         return _("EPUBファイル (.epub)") + "|*.epub"
+    
+    def isDirectory():
+        return False
 
 if __name__ == '__main__':
     s, i, m = epub.parse("input.epub") 
