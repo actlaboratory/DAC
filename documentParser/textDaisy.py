@@ -24,7 +24,8 @@ class textDaisy(documentParserInterface):
                     "label": t.navLabel.find("text").string if t.navLabel != None and t.navLabel.find("text") != None else "",
                     "level": level
                 })
-                sources, indexes = textDaisy._parsencxNavPoint(t, (level + 1), sources, indexes, False)
+                if t.find("navPoint") != None:
+                    sources, indexes = textDaisy._parseNcxNavPoint(t, (level + 1), sources, indexes, False)
             except Exception as e: pass
         if finalize:
             sources = sorted(sources)
@@ -34,14 +35,20 @@ class textDaisy(documentParserInterface):
         return (sources, indexes, meta)
 
     # idテキスト本文取得
+    _xmlTagCache = {"source": "", "tags": None}
     def _getSrcIdText(dir, srcStr):
         id = re.sub(r'^.*#', "", srcStr)
         src = re.sub(r'#.*$', "", srcStr)
         src = os.path.join(dir, src)
-        fileText = ""
-        with open(src, "r", encoding="utf8") as f:
-            fileText = f.read()
-        soup = BeautifulSoup(fileText, "lxml-xml")
+        if textDaisy._xmlTagCache["source"] != src:
+            fileText = ""
+            with open(src, "r", encoding="utf8") as f:
+                fileText = f.read()
+            textDaisy._xmlTagCache = {
+                "source": src,
+                "tags": BeautifulSoup(fileText, "lxml-xml")
+            }
+        soup = textDaisy._xmlTagCache["tags"]
         results = soup.select("#" + id)
         if len(results) == 0:
             text = ""
@@ -81,7 +88,9 @@ class textDaisy(documentParserInterface):
                         text = textDaisy._getSrcIdText(dir, t.find("text").get("src"))
                         texts += textDaisy._splitText(text)
                     elif end:
+                        textDaisy._xmlTagCache = {"source": "", "tags": None}
                         return texts
+        textDaisy._xmlTagCache = {"source": "", "tags": None}
         return texts
 
     def _appendText2Index(source, index, phrase=False):
