@@ -108,6 +108,28 @@ class textDaisy(documentParserInterface):
             #print(index[i]["texts"])
         return index
 
+    # メタ情報取得
+    def _getMeta(source):
+        meta ={
+            "title": "",
+            "publisher": "",
+            "creator": ""
+        }
+        try: opf = glob.glob(os.path.join(source, "*.opf"))[0]
+        except Exception as e:
+            return meta
+        opfText = ""
+        with open(opf, "r", encoding="utf8") as f:
+            opfText = f.read()
+        soup = BeautifulSoup(opfText, "lxml-xml")
+        try: meta["title"] = soup.package.metadata.find("dc-metadata").find("dc:Title").string
+        except Exception as e: pass
+        try: meta["publisher"] = soup.package.metadata.find("dc-metadata").find("dc:Publisher").string
+        except Exception as e: pass
+        try: meta["creator"] = soup.package.metadata.find("dc-metadata").find("dc:Creator").string
+        except Exception as e: pass
+        return meta
+
     #sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
     # textdaisy パース
@@ -128,11 +150,7 @@ class textDaisy(documentParserInterface):
         except Exception as e:
             raise inputError(str(e))
 
-        meta = {
-            "title": "title",
-            "publisher": "publisher",
-            "creator": "creator"
-        }
+        meta = textDaisy._getMeta(source)
 
         sources = []
         indexes = []
