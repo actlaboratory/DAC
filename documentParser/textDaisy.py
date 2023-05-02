@@ -32,7 +32,7 @@ class textDaisy(documentParserInterface):
             sources = [item[1] for item in sources]
             sources = sorted(set(sources), key=sources.index)
             return (sources, indexes)
-        return (sources, indexes, meta)
+        return (sources, indexes)
 
     # idテキスト本文取得
     _xmlTagCache = {"source": "", "tags": None}
