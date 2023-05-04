@@ -109,8 +109,6 @@ class Events(BaseEvents):
 		selected = self.parent.inputCategoryCombo.GetSelection()
 		if selected < 0: #未選択
 			return
-		print(documentParser.getParsers())
-		print(selected)
 		if documentParser.getParsers()[selected].isDirectory():
 			d = wx.DirDialog(None, _("変換元フォルダの選択"))
 		else:
