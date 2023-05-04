@@ -85,7 +85,7 @@ class markdown(documentParserInterface):
 	def getWildCardString():
 		return _("markdownファイル (.md)") + "|*.md"
 	
-	def isDirectory():
+	def isFromDirectory():
 		return False
 
 if __name__ == '__main__':

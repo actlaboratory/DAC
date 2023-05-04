@@ -149,7 +149,7 @@ class epub(documentParserInterface):
     def getWildCardString():
         return _("EPUBファイル (.epub)") + "|*.epub"
     
-    def isDirectory():
+    def isFromDirectory():
         return False
 
 if __name__ == '__main__':

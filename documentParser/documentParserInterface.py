@@ -15,6 +15,7 @@ class documentParserInterface(metaclass=ABCMeta):
 		raise NotImplemented()
 	
 	@abstractmethod
-	def isDirectory():
+	# 入力元がフォルダかどうか
+	def isFromDirectory():
 		raise NotImplemented()
 

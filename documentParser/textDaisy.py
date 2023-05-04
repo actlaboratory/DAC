@@ -178,7 +178,7 @@ class textDaisy(documentParserInterface):
     def getWildCardString():
         return None
 
-    def isDirectory():
+    def isFromDirectory():
         return True
 
 if __name__ == '__main__':
