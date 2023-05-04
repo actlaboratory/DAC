@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Document parser interface
 # Copyright (C) 2022 yamahubuki <itiro.ishino@gmail.com>
+# Copyright (c)2023 Hiroki Fujii,ACT laboratory All rights reserved.
 
 from abc import ABCMeta, abstractmethod, ABC
 
