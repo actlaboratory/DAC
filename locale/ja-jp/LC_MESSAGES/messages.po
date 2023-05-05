@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: test\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-30 17:59+0900\n"
+"POT-Creation-Date: 2023-05-05 15:47+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,12 +145,16 @@ msgstr ""
 msgid "EPUBファイル (.epub)"
 msgstr ""
 
-#: documentParser\markdown.py:78
+#: documentParser\markdown.py:83
 msgid "markdownファイル"
 msgstr ""
 
-#: documentParser\markdown.py:81
+#: documentParser\markdown.py:86
 msgid "markdownファイル (.md)"
+msgstr ""
+
+#: documentParser\textDaisy.py:176
+msgid "テキストデイジー図書"
 msgstr ""
 
 #: views\base.py:68
@@ -172,7 +176,7 @@ msgstr ""
 #: views\fontManager.py:50 views\globalKeyConfig.py:61
 #: views\KeyValueSettingDialogBase.py:297
 #: views\KeyValueSettingDialogBase.py:348 views\updateDialog.py:66
-#: views\voicevoxSettingsDialog.py:44 views\voicevoxSettingsDialog.py:51
+#: views\voicevoxSettingsDialog.py:46 views\voicevoxSettingsDialog.py:53
 msgid "エラー"
 msgstr ""
 
@@ -190,7 +194,7 @@ msgstr ""
 
 #: views\daisyOutputPanel.py:35 views\globalKeyConfig.py:75
 #: views\sapi5SettingsDialog.py:34 views\settingsDialog.py:58
-#: views\voicevoxSettingsDialog.py:37
+#: views\voicevoxSettingsDialog.py:39
 msgid "設定"
 msgstr ""
 
@@ -275,7 +279,7 @@ msgstr ""
 msgid "識別子"
 msgstr ""
 
-#: views\globalKeyConfig.py:31 views\main.py:127
+#: views\globalKeyConfig.py:31 views\main.py:128
 msgid "ショートカットキーの設定"
 msgstr ""
 
@@ -284,7 +288,7 @@ msgstr ""
 #: views\globalKeyConfig.py:120 views\globalKeyConfig.py:128
 #: views\globalKeyConfig.py:138 views\globalKeyConfig.py:143
 #: views\keyConfig.py:57 views\KeyValueSettingDialogBase.py:333
-#: views\main.py:159 views\main.py:172
+#: views\main.py:160 views\main.py:173
 msgid "なし"
 msgstr ""
 
@@ -375,7 +379,7 @@ msgstr ""
 #: views\KeyValueSettingDialogBase.py:84 views\KeyValueSettingDialogBase.py:275
 #: views\mkDialog.py:31 views\sapi5SettingsDialog.py:49
 #: views\settingsDialog.py:99 views\SimpleInputDialog.py:39
-#: views\updateDialog.py:45 views\voicevoxSettingsDialog.py:77
+#: views\updateDialog.py:45 views\voicevoxSettingsDialog.py:78
 msgid "キャンセル"
 msgstr ""
 
@@ -445,7 +449,11 @@ msgstr ""
 msgid "ヘルプ(&H)"
 msgstr ""
 
-#: views\main.py:114
+#: views\main.py:113
+msgid "変換元フォルダの選択"
+msgstr ""
+
+#: views\main.py:115
 msgid "変換元ファイルの選択"
 msgstr ""
 
@@ -453,7 +461,7 @@ msgstr ""
 msgid "中止"
 msgstr ""
 
-#: views\sapi5SettingsDialog.py:44 views\voicevoxSettingsDialog.py:71
+#: views\sapi5SettingsDialog.py:44 views\voicevoxSettingsDialog.py:72
 msgid "声"
 msgstr ""
 
@@ -610,23 +618,25 @@ msgstr ""
 msgid "閉じる"
 msgstr ""
 
-#: views\voicevoxSettingsDialog.py:44
+#: views\voicevoxSettingsDialog.py:46
+#, python-format
 msgid ""
-"Voicevoxに接続できません。Voicevoxが正しく起動しているか確認してください。"
+"%(name)sに接続できません。%(name)sが正しく起動しているか確認してください。"
 msgstr ""
 
-#: views\voicevoxSettingsDialog.py:51
-msgid "Voicevoxとの接続中にエラーが発生しました。"
+#: views\voicevoxSettingsDialog.py:53
+#, python-format
+msgid "%(name)sとの接続中にエラーが発生しました。"
 msgstr ""
 
 #: views\web.py:28
 msgid "googleアカウント認証"
 msgstr ""
 
-#: voiceMaker\sapi.py:43
+#: voiceMaker\sapi.py:48
 msgid "Microsoft SAPI5"
 msgstr ""
 
-#: voiceMaker\voicevox.py:70
+#: voiceMaker\voicevox.py:77
 msgid "Voicevox"
 msgstr ""
