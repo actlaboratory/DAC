@@ -1,4 +1,4 @@
-# Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
+# Copyright (c)2022-2023 Hiroki Fujii,ACT laboratory All rights reserved.
 # Copyright (C) 2022 yamahubuki <itiro.ishino@gmail.com>
 
 import bs4
@@ -84,6 +84,9 @@ class markdown(documentParserInterface):
 
 	def getWildCardString():
 		return _("markdownファイル (.md)") + "|*.md"
+	
+	def isFromDirectory():
+		return False
 
 if __name__ == '__main__':
 	s, i, m = markdown.parse("input.md")

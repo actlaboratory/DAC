@@ -109,9 +109,10 @@ class Events(BaseEvents):
 		selected = self.parent.inputCategoryCombo.GetSelection()
 		if selected < 0: #未選択
 			return
-		print(documentParser.getParsers())
-		print(selected)
-		d = wx.FileDialog(None, _("変換元ファイルの選択"), wildcard=documentParser.getParsers()[selected].getWildCardString())
+		if documentParser.getParsers()[selected].isFromDirectory():
+			d = wx.DirDialog(None, _("変換元フォルダの選択"))
+		else:
+			d = wx.FileDialog(None, _("変換元ファイルの選択"), wildcard=documentParser.getParsers()[selected].getWildCardString())
 		r = d.ShowModal()
 		if r == wx.ID_CANCEL: return
 		path = d.GetPath()

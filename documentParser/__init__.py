@@ -2,8 +2,9 @@
 
 from . import epub
 from . import markdown
+from . import textDaisy
 from . import documentParserInterface
 
 
 def getParsers():
-	return [epub.epub, markdown.markdown]
+	return [epub.epub, markdown.markdown, textDaisy.textDaisy]

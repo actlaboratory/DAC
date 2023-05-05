@@ -1,4 +1,4 @@
-# Copyright (c)2022 Hiroki Fujii,ACT laboratory All rights reserved.
+# Copyright (c)2022-2023 Hiroki Fujii,ACT laboratory All rights reserved.
 
 import bs4
 import ebooklib
@@ -11,7 +11,7 @@ import sys
 from bs4 import BeautifulSoup
 from ebooklib import epub
 
-from .documentParserInterface import *
+from documentParser.documentParserInterface import *
 from errors import *
 
 class epub(documentParserInterface):
@@ -148,6 +148,9 @@ class epub(documentParserInterface):
 
     def getWildCardString():
         return _("EPUBファイル (.epub)") + "|*.epub"
+    
+    def isFromDirectory():
+        return False
 
 if __name__ == '__main__':
     s, i, m = epub.parse("input.epub") 
